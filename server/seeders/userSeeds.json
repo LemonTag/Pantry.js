@@ -1,0 +1,52 @@
+[
+  {
+    "username": "Geralt of Rivia",
+    "email": "geralt@witchersguild.dev",
+    "password": "rootroot"
+  },
+  {
+    "username": "Yennefer of Vengerberg",
+    "email": "yennefer@witchersguild.dev",
+    "password": "rootroot"
+  },
+  {
+    "username": "Ciri of Cintra",
+    "email": "ciri@witchersguild.dev",
+    "password": "rootroot"
+  },
+  {
+    "username": "Triss Merigold",
+    "email": "triss@witchersguild.dev",
+    "password": "rootroot"
+  },
+  {
+    "username": "Dandelion",
+    "email": "dandelion@witchersguild.dev",
+    "password": "rootroot"
+  },
+  {
+    "username": "Vesemir",
+    "email": "vesemir@witchersguild.dev",
+    "password": "rootroot"
+  },
+  {
+    "username": "Zoltan Chivay",
+    "email": "zoltan@witchersguild.dev",
+    "password": "rootroot"
+  },
+  {
+    "username": "Regis",
+    "email": "regis@witchersguild.dev",
+    "password": "rootroot"
+  },
+  {
+    "username": "Emhyr var Emreis",
+    "email": "emhyr@witchersguild.dev",
+    "password": "rootroot"
+  },
+  {
+    "username": "Jaskier",
+    "email": "jaskier@witchersguild.dev",
+    "password": "rootroot"
+  }
+]

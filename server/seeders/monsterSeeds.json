@@ -1,0 +1,62 @@
+[
+  {
+    "monsterName": "Kikimora",
+    "type": "Insectoid",
+    "habitat": "Swamps",
+    "weaknesses": ["Insectoid Oil", "Igni"]
+  },
+  {
+    "monsterName": "Striga",
+    "type": "Cursed One",
+    "habitat": "Ruins",
+    "weaknesses": ["Cursed Oil", "Quen"]
+  },
+  {
+    "monsterName": "Griffin",
+    "type": "Hybrid",
+    "habitat": "Mountains",
+    "weaknesses": ["Hybrid Oil", "Aard"]
+  },
+  {
+    "monsterName": "Leshen",
+    "type": "Relict",
+    "habitat": "Forests",
+    "weaknesses": ["Relict Oil", "Igni", "Dimeritium Bomb"]
+  },
+  {
+    "monsterName": "Drowner",
+    "type": "Necrophage",
+    "habitat": "Water bodies",
+    "weaknesses": ["Necrophage Oil", "Igni"]
+  },
+  {
+    "monsterName": "Golem",
+    "type": "Construct",
+    "habitat": "Ruins",
+    "weaknesses": ["Elementa Oil", "Dimeritium Bomb"]
+  },
+  {
+    "monsterName": "Vampire",
+    "type": "Vampire",
+    "habitat": "Various",
+    "weaknesses": ["Vampire Oil", "Black Blood", "Moon Dust"]
+  },
+  {
+    "monsterName": "Wyvern",
+    "type": "Draconid",
+    "habitat": "Mountains",
+    "weaknesses": ["Draconid Oil", "Aard"]
+  },
+  {
+    "monsterName": "Fiend",
+    "type": "Relict",
+    "habitat": "Forests",
+    "weaknesses": ["Relict Oil", "Moondust", "Axii"]
+  },
+  {
+    "monsterName": "Noonwraith",
+    "type": "Specter",
+    "habitat": "Fields",
+    "weaknesses": ["Specter Oil", "Yrden", "Moon Dust"]
+  }
+]
