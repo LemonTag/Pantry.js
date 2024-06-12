@@ -145,7 +145,53 @@ const resolvers = {
         { new: true }
       );
     },
+
+    addRecipe: async(_,{label,image,source,url,ingredientIds})=>{
+      const recipe= await Recipe.create({
+        label,
+        image,
+        source,
+        url,
+
+      });
+      if (ingredientIds && ingredientIds.length > 0) {
+        const ingredients = await Ingredient.find({ _id: { $in: ingredientIds } });
+        recipe.ingredients = ingredients.map(ingredient => ingredient._id);
+        await recipe.save();
+      }
+        return recipe;
+    }, catch (error) {
+      
+      console.error('Error adding recipe:', error);
+      throw new Error('Failed to add recipe');
+    },
+
+    updateRecipe: async (_, { _id, label, image, source, url, ingredientIds }) => {
+      const updateFields = {};
+      if (label) updateFields.label = label;
+      if (image) updateFields.image = image;
+      if (source) updateFields.source = source;
+      if (url) updateFields.url = url;
+      if (ingredientIds) updateFields.ingredients = ingredientIds;
+
+      return Recipe.findOneAndUpdate(
+        { _id: _id },
+        { $set: updateFields },
+        { new: true }
+      );
+    },
+    
+
+    deleteRecipe: async (_, { _id }) => {
+      const recipe = await Recipe.findOneAndDelete({
+        _id: _id,
+      });
+      return recipe
+    }
+
+    
   },
+
 };
 
 module.exports = resolvers;
