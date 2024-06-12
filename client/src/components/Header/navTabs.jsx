@@ -26,6 +26,13 @@ const NavTabs = () => {
         to="/Pantry" 
         className={currentPage === "/Pantry" ? "nav-link active" : "nav-link"} 
       />
+      <Tab
+      label="Cook Book"
+      value="/Cookbook"
+      component={Link}
+      to="/Cookbook"
+      className={currentPage === "/Cookbook" ? "nav-link active" : "nav-link"} 
+      />
     </Tabs>
   );
 };

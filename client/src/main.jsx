@@ -8,7 +8,7 @@ import Login from "./pages/Login";
 import Pantry from "./pages/Pantry.jsx";
 import Profile from "./pages/Profile";
 import ErrorPage from "./pages/ErrorPage";
-// import Testing from "./pages/Testing.jsx";
+import Cookbook from "./pages/Cookbook.jsx"
 
 const router = createBrowserRouter([
   {
@@ -36,13 +36,13 @@ const router = createBrowserRouter([
         path: "/me",
         element: <Profile />,
       },
-      // {
-      //   path: "/testing",
-      //   element: <Testing/>
-      // },
       {
         path: "/pantry",
         element: <Pantry/>
+      },
+      {
+        path: "/cookbook",
+        element: <Cookbook/>
       }
     ],
   },
