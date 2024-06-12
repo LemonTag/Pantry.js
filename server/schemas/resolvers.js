@@ -145,6 +145,40 @@ const resolvers = {
       );
     },
 
+    addIngredient: async (parent, { text, quantity, measure, food, weight, foodId }) => {
+      const ingredient = await Ingredient.create({
+        text,
+        quantity,
+        measure,
+        food,
+        weight,
+        foodId,
+      });
+      return ingredient;
+    },
+
+    updateIngredient: async (parent, { _id, text, quantity, measure, food, weight, foodId }) => {
+      const updateFields = {};
+      if (text) updateFields.text = text;
+      if (quantity !== undefined) updateFields.quantity = quantity;
+      if (measure) updateFields.measure = measure;
+      if (food) updateFields.food = food;
+      if (weight !== undefined) updateFields.weight = weight;
+      if (foodId) updateFields.foodId = foodId;
+
+      const updatedIngredient = await Ingredient.findOneAndUpdate(
+        { _id: _id },
+        { $set: updateFields },
+        { new: true }
+      );
+      return updatedIngredient;
+    },
+
+    deleteIngredient: async (parent, { _id }) => {
+      const deletedIngredient = await Ingredient.findOneAndDelete({ _id: _id });
+      return deletedIngredient;
+    },
+  
     addRecipe: async(_,{label,image,instructions,url,ingredientIds})=>{
       const recipe= await Recipe.create({
         label,
@@ -176,15 +210,13 @@ const resolvers = {
       );
     },
     
-
     deleteRecipe: async (_, { _id }) => {
       const recipe = await Recipe.findOneAndDelete({
         _id: _id,
       });
       return recipe
     }
-
-    
+   
   },
 
 };
