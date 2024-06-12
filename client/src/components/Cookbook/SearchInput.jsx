@@ -9,7 +9,6 @@ const SearchInput = ({ onSearch }) => {
   };
 
   const handleSearch = async () => {
-    const ingredients = inputValue.split(',').map((item) => item.trim());
     try {
       const response = await fetch(`https://api.edamam.com/search?q=${inputValue}&app_id=e60d45ac&app_key=fcb5780894c4282cc330af20f9a037df`);
       const data = await response.json();
@@ -33,7 +32,15 @@ const SearchInput = ({ onSearch }) => {
       {searchResults.length > 0 && (
         <ul>
           {searchResults.map((recipe) => (
-            <li key={recipe.recipe.uri}>{recipe.recipe.label}</li>
+            <li key={recipe.recipe.uri}>
+              <h2>{recipe.recipe.label}</h2>
+              <ul>
+                <h3>Ingredients:</h3>
+                {recipe.recipe.ingredientLines.map((ingredient, index) => (
+                  <li key={index}>{ingredient}</li>
+                ))}
+              </ul>
+            </li>
           ))}
         </ul>
       )}
