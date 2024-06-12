@@ -10,9 +10,10 @@ const recipeSchema = new Schema({
         type:String,
         required:true
     },
-    source:{
-        type:String,        
-    },
+    instructions:[{
+        type:String,   
+        ref: Instructions     
+    }],
     url:{
         type:String
     },

@@ -35,9 +35,9 @@ const resolvers = {
         const recipes = data.hits.map(hit => ({
           label: hit.recipe.label,
           image: hit.recipe.image,
-          source: hit.recipe.source,
+          instructions: hit.recipe.instructions,
           url: hit.recipe.url,
-          ingredients: hit.recipe.ingredientLines,
+          ingredients: hit.recipe.ingredients,
         }));
 
         return recipes;
