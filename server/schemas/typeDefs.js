@@ -16,16 +16,10 @@ const typeDefs = `
     foodId: String!
   }
 
-  type Instructions {
-    _id: ID
-    instructions: String!
-  }
-
   type Recipe {
     _id: ID
     label: String!
     image: String!
-    instructions: String!
     url: String!
     ingredients:[Ingredient!]!
     createdAt:String!
