@@ -37,12 +37,12 @@ const router = createBrowserRouter([
         element: <Profile />,
       },
       {
-        path: "/monsters/:monsterId",
-        element: <SingleMonster />,
-      },
-      {
         path: "/testing",
         element: <Testing/>
+      },
+      {
+        path: "/pantry",
+        element: <Pantry/>
       }
     ],
   },
