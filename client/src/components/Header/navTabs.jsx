@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Tabs, Tab } from '@mui/material';
+import { Grid, Tabs, Tab } from '@mui/material';
 
 const NavTabs = () => {
   const location = useLocation();
@@ -10,14 +10,33 @@ const NavTabs = () => {
     setCurrentPage(newValue);
   };
 
+  const tabStyles = {
+    borderRadius: '10px 10px 0 0', // Rounded corners
+    backgroundColor: '#425263', // Background color for inactive tabs
+    marginRight: '5px',
+    '&.Mui-selected': {
+      backgroundColor: '#DADADA', // Background color for active tab
+      color: '#224E9C', // Text color for active tab
+    },
+  };
+
+  const tabsContainerStyles = {
+    marginTop: '15px',
+    marginBottom: '-16px', // Adjust as needed to remove space below tabs
+  };
+  
+
   return (
-    <Tabs value={currentPage} onChange={handleChange} indicatorColor="primary" textColor="primary">
+    <Grid container justifyContent="center">
+      <Grid item>
+    <Tabs value={currentPage} onChange={handleChange} indicatorColor="primary" textColor="primary" sx={tabsContainerStyles}>
       <Tab 
         label="Home" 
         value="/" 
         component={Link} 
         to="/" 
         className={currentPage === "/" ? "nav-link active" : "nav-link"} 
+        sx={tabStyles}
       />
       <Tab 
         label="Pantry" 
@@ -25,6 +44,7 @@ const NavTabs = () => {
         component={Link} 
         to="/Pantry" 
         className={currentPage === "/Pantry" ? "nav-link active" : "nav-link"} 
+        sx={tabStyles}
       />
       <Tab
       label="Cook Book"
@@ -32,8 +52,11 @@ const NavTabs = () => {
       component={Link}
       to="/Cookbook"
       className={currentPage === "/Cookbook" ? "nav-link active" : "nav-link"} 
+      sx={tabStyles}
       />
     </Tabs>
+    </Grid>
+    </Grid>
   );
 };
 

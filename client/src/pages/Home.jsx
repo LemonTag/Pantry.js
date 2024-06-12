@@ -1,9 +1,9 @@
-import Pantry from './Pantry'
+// import Pantry from './Pantry'
 
 const Home = () => {
   return (
     <main>
-      <Pantry/>      
+      <p>Thar be the home page, host of hopes, dreams, and hopefully eventually some food n shit lmao</p>     
     </main>
   );
 };
