@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import NavTabs from './navTabs'
 
 import Auth from "../../utils/auth";
 
 const Header = () => {
+  const currentPage=useLocation().pathname;
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
@@ -38,6 +40,7 @@ const Header = () => {
           )}
         </div>
       </div>
+      <NavTabs/>
     </header>
   );
 };

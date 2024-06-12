@@ -7,7 +7,7 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
-import Testing from './pages/Testing';
+// import Testing from './pages/Testing';
 import Header from './components/Header';
 import Footer from './components/Footer';
 

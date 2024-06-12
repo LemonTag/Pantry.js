@@ -1,8 +1,9 @@
+import Pantry from './Pantry'
 
 const Home = () => {
   return (
     <main>
-      
+      <Pantry/>      
     </main>
   );
 };
