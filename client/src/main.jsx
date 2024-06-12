@@ -5,10 +5,10 @@ import App from "./App.jsx";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import SingleMonster from "./pages/SingleMonster";
+import Pantry from "./pages/Pantry.jsx";
 import Profile from "./pages/Profile";
 import ErrorPage from "./pages/ErrorPage";
-import Testing from "./pages/Testing.jsx";
+// import Testing from "./pages/Testing.jsx";
 
 const router = createBrowserRouter([
   {
@@ -36,10 +36,10 @@ const router = createBrowserRouter([
         path: "/me",
         element: <Profile />,
       },
-      {
-        path: "/testing",
-        element: <Testing/>
-      },
+      // {
+      //   path: "/testing",
+      //   element: <Testing/>
+      // },
       {
         path: "/pantry",
         element: <Pantry/>
