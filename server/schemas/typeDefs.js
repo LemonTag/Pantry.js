@@ -51,25 +51,27 @@ const typeDefs = `
     me: User
     recipes:[Recipe]
     recipe(recipeId: ID!):Recipe
+    searchRecipes(q: String!): [Recipe]
   }
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addMonster(monsterName: String!, type: String!, habitat: String!, weaknesses: [String]!): Monster
-    updateMonster(monsterId: ID!, monsterName: String, type: String, habitat: String, weaknesses: [String]): Monster
-      removeMonster(monsterId: ID!): Monster
+    updateMonster(monsterId: ID!, monsterName: String, type: String, habitat: String, weaknesses: [String]): Monster # Colon added here
+    removeMonster(monsterId: ID!): Monster
     addComment(monsterId: ID!, commentText: String!): Monster
     updateComment(monsterId: ID!, commentId: ID!, commentText: String!): Monster
     removeComment(monsterId: ID!, commentId: ID!): Monster
-
+  
     addIngredient(ingredientName: String!) : Ingredient
     updateIngredient(_id:ID!, ingredientName: String!) : Ingredient
     deleteIngredient(_id:ID!) :Ingredient
-
+  
     addRecipe(label: String!, image: String, source: String, url: String, ingredientIds: [ID]): Recipe
     updateRecipe(_id: ID!, label: String, image: String, source: String, url: String, ingredientIds: [ID]): Recipe
     deleteRecipe(_id: ID!): Recipe
+  }
 `;
 
 module.exports = typeDefs;
