@@ -8,15 +8,24 @@ const typeDefs = `
 
   type Ingredient {
     _id: ID
-    ingredientName: String!
-    createdAt:String!
+    text: String!
+    quantity: String!
+    measure: String!
+    food: String!
+    weight: String!
+    foodId: String!
+  }
+
+  type Instructions {
+    _id: ID
+    instructions: String!
   }
 
   type Recipe {
     _id: ID
     label: String!
     image: String!
-    source: String!
+    instructions: String!
     url: String!
     ingredients:[Ingredient!]!
     createdAt:String!
