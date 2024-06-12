@@ -6,7 +6,11 @@ const typeDefs = `
     password: String
   }
 
-  
+  type: Ingredient{
+    _id:ID
+    ingredientName: String!
+    createdAt:String!
+  }
 
   type: Recipe{
     _id:ID
@@ -45,6 +49,8 @@ const typeDefs = `
     monsters(username: String): [Monster]
     monster(monsterId: ID!): Monster
     me: User
+    recipes:[Recipe]
+    recipe(recipeID!):Recipe
   }
 
   type Mutation {
