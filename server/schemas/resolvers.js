@@ -21,6 +21,31 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+    searchRecipes: async (_, { q }) => {
+      try {
+        const response = await fetch(`https://api.edamam.com/search?q=${q}&app_id=e60d45ac&app_key=fcb5780894c4282cc330af20f9a037df`);
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch recipes from Edamam');
+        }
+
+        const data = await response.json();
+
+        // Parse the response and return the required data
+        const recipes = data.hits.map(hit => ({
+          label: hit.recipe.label,
+          image: hit.recipe.image,
+          source: hit.recipe.source,
+          url: hit.recipe.url,
+          ingredients: hit.recipe.ingredientLines,
+        }));
+
+        return recipes;
+      } catch (error) {
+        console.error('Error fetching recipes from Edamam:', error);
+        throw new Error('Failed to fetch recipes from Edamam');
+      }
+    },
   },
 
   Mutation: {
