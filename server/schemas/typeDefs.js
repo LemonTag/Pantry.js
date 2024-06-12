@@ -62,7 +62,14 @@ const typeDefs = `
     addComment(monsterId: ID!, commentText: String!): Monster
     updateComment(monsterId: ID!, commentId: ID!, commentText: String!): Monster
     removeComment(monsterId: ID!, commentId: ID!): Monster
-  }
+
+    addIngredient(ingredientName: String!) : Ingredient
+    updateIngredient(_id:ID!, ingredientName: String!) : Ingredient
+    deleteIngredient(_id:ID!) :Ingredient
+
+    addRecipe(label: String!, image: String, source: String, url: String, ingredientIds: [ID]): Recipe
+    updateRecipe(_id: ID!, label: String, image: String, source: String, url: String, ingredientIds: [ID]): Recipe
+    deleteRecipe(_id: ID!): Recipe
 `;
 
 module.exports = typeDefs;
