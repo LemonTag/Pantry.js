@@ -1,4 +1,4 @@
-const { User, Monster } = require("../models");
+const { User, Monster, Recipe, Ingredient } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
@@ -146,8 +146,9 @@ const resolvers = {
       );
     },
 
-    addRecipe: async(_,{label,image,instructions,url,ingredientIds})=>{
+    addRecipe: async(_,{_id,label,image,instructions,url,ingredientIds})=>{
       const recipe= await Recipe.create({
+        _id,
         label,
         image,
         instructions,

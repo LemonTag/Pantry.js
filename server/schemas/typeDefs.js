@@ -77,7 +77,7 @@ const typeDefs = `
     updateIngredient(_id:ID!, ingredientName: String!) : Ingredient
     deleteIngredient(_id:ID!) :Ingredient
   
-    addRecipe(label: String!, image: String, source: String, url: String, ingredientIds: [ID]): Recipe
+    addRecipe(label: String!, image: String, instructions: String, url: String, ingredientIds: [ID]): Recipe
     updateRecipe(_id: ID!, label: String, image: String, source: String, url: String, ingredientIds: [ID]): Recipe
     deleteRecipe(_id: ID!): Recipe
   }
