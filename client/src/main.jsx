@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import SingleMonster from "./pages/SingleMonster";
 import Profile from "./pages/Profile";
 import ErrorPage from "./pages/ErrorPage";
+import Testing from "./pages/Testing.jsx";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
         path: "/monsters/:monsterId",
         element: <SingleMonster />,
       },
+      {
+        path: "/testing",
+        element: <Testing/>
+      }
     ],
   },
 ]);
