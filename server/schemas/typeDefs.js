@@ -6,6 +6,18 @@ const typeDefs = `
     password: String
   }
 
+  
+
+  type: Recipe{
+    _id:ID
+    label: String!
+    image: String!
+    source: String!
+    url: String!
+    ingredients:[Ingredient!]!
+    createdAt:String!
+  }
+
   type Monster {
     _id: ID
     monsterName: String!
