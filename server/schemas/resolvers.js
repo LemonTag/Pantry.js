@@ -146,11 +146,11 @@ const resolvers = {
       );
     },
 
-    addRecipe: async(_,{label,image,source,url,ingredientIds})=>{
+    addRecipe: async(_,{label,image,instructions,url,ingredientIds})=>{
       const recipe= await Recipe.create({
         label,
         image,
-        source,
+        instructions,
         url,
 
       });
@@ -160,17 +160,13 @@ const resolvers = {
         await recipe.save();
       }
         return recipe;
-    }, catch (error) {
-      
-      console.error('Error adding recipe:', error);
-      throw new Error('Failed to add recipe');
-    },
+    }, 
 
-    updateRecipe: async (_, { _id, label, image, source, url, ingredientIds }) => {
+    updateRecipe: async (_, { _id, label, image, instructions, url, ingredientIds }) => {
       const updateFields = {};
       if (label) updateFields.label = label;
       if (image) updateFields.image = image;
-      if (source) updateFields.source = source;
+      if (instructions) updateFields.instructions = instructions;
       if (url) updateFields.url = url;
       if (ingredientIds) updateFields.ingredients = ingredientIds;
 
