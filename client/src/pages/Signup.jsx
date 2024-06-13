@@ -64,7 +64,7 @@ const Signup = () => {
               Success! You may now head <Link component={RouterLink} to="/">back to the homepage.</Link>
             </Alert>
           ) : (
-            <form onSubmit={handleSubmit(handleFormSubmit)}> {/* Form for signup */}
+            <form onSubmit = {handleFormSubmit}> {/* Form for signup */}
               <FormControl fullWidth sx={{ mb: 2 }}> {/* Username field */}
                 <InputLabel htmlFor="username">Username</InputLabel>
                 <OutlinedInput
