@@ -14,12 +14,12 @@ const NavTabs = () => {
     borderRadius: '10px 10px 0 0',  // Rounded corners
     backgroundColor: '#425263',  // Background color for inactive tabs
     marginRight: '5px',
-    ...(currentPage === '/' && {  // Apply styles only when currentPage is "/" (Home)
-      boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)', // Add box shadow
-    }),
+    boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)', // Add box shadow
+    backgroundColor: '#DADADA',  // Background color for active tab
+    color: '#224E9C',  // Text color for active tab
+    //target .Mui-selected for the animation in css
     '&.Mui-selected': {
-      backgroundColor: '#DADADA',  // Background color for active tab
-      color: '#224E9C',  // Text color for active tab
+      backgroundColor: "#5DBB63",
     },
   };
 
@@ -27,38 +27,38 @@ const NavTabs = () => {
     marginTop: '15px',
     marginBottom: '-16px', // Adjust as needed to remove space below tabs
   };
-  
+
 
   return (
     <Grid container justifyContent="center">
       <Grid item>
-    <Tabs value={currentPage} onChange={handleChange} indicatorColor="primary" textColor="primary" sx={tabsContainerStyles}>
-      <Tab 
-        label="Home" 
-        value="/" 
-        component={Link} 
-        to="/" 
-        className={currentPage === "/" ? "nav-link active" : "nav-link"} 
-        sx={tabStyles}
-      />
-      <Tab 
-        label="Pantry" 
-        value="/Pantry" 
-        component={Link} 
-        to="/Pantry" 
-        className={currentPage === "/Pantry" ? "nav-link active" : "nav-link"} 
-        sx={tabStyles}
-      />
-      <Tab
-      label="Cook Book"
-      value="/Cookbook"
-      component={Link}
-      to="/Cookbook"
-      className={currentPage === "/Cookbook" ? "nav-link active" : "nav-link"} 
-      sx={tabStyles}
-      />
-    </Tabs>
-    </Grid>
+        <Tabs value={currentPage} onChange={handleChange} indicatorColor="primary" textColor="primary" sx={tabsContainerStyles}>
+          <Tab
+            label="Home"
+            value="/"
+            component={Link}
+            to="/"
+            className={currentPage === "/" ? "nav-link active" : "nav-link"}
+            sx={tabStyles}
+          />
+          <Tab
+            label="Pantry"
+            value="/Pantry"
+            component={Link}
+            to="/Pantry"
+            className={currentPage === "/Pantry" ? "nav-link active" : "nav-link"}
+            sx={tabStyles}
+          />
+          <Tab
+            label="Cook Book"
+            value="/Cookbook"
+            component={Link}
+            to="/Cookbook"
+            className={currentPage === "/Cookbook" ? "nav-link active" : "nav-link"}
+            sx={tabStyles}
+          />
+        </Tabs>
+      </Grid>
     </Grid>
   );
 };

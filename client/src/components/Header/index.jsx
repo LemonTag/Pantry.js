@@ -13,11 +13,18 @@ const Header = () => {
 
   return (
     <AppBar position="static" sx={{background: '#DDf2D1'}}className="text-light mb-4 py-3"> {/* Set background color and classes */}
-      <Container maxWidth="lg"> {/* Set container width */}
+      <Container sx={{minWidth: '100vw', maxWidth: '100vw'}}> {/* Set container width */}
         <Toolbar disableGutters> {/* Remove default padding */}
           <Box display="flex" flexGrow={1} alignItems="center"> {/* Box for left section with flexbox layout */}
             <Link to="/" style={{ textDecoration: 'none' }}> {/* Link component for logo */}
-              <Typography display = "flex" variant="h6" noWrap component="div" sx={{ color: 'inherit', fontStyle: 'italic', fontSize: '25px', paddingRight: '10px', justifyContent: "space-between",   }}>
+              <Typography display = "flex" variant="h6" noWrap component="div" 
+              sx={{    color: '#5DBB63',
+                fontStyle: 'bold',
+                fontSize: '25px',
+                paddingRight: '10px',
+                justifyContent: "space-between",
+                fontFamily: '"Rubik Mono One", monospace;',
+                }}>
                 Pantry.js
               </Typography>
             </Link>
@@ -37,7 +44,7 @@ const Header = () => {
               </>
             ) : (
               <> {/* Render buttons if user is not logged in */}
-                <Button variant="contained" color="primary" to="/login" component={Link} sx={{ mr: 1, boxShadow: 2, }}>
+                <Button variant="contained" color="primary" to="/login" component={Link} sx={{ mr: 1, background: '#5DBB63', boxShadow: 2, }}>
                   Login
                 </Button>
                 <Button variant="outlined" to="/signup" component={Link} sx={{ mr: 1, background: 'white', boxShadow: 2,}}>
