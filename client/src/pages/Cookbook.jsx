@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import SearchInput from '../components/Cookbook/SearchInput'; // Assuming SearchInput is valid and MUI-compatible
-import CookbookCards from '../components/Cookbook/CookbookCards'; // Assuming CookbookCards is valid and MUI-compatible
+import SearchInput from '../components/Cookbook/SearchInput';
+import CookbookCards from '../components/Cookbook/CookbookCards';
 import { Container, Grid, Typography } from '@mui/material';
 
 function Cookbook() {
-  // State to store selected ingredient IDs
-  const [ingredientIds, setIngredientIds] = useState([]);
+  // State to store search results (recipes)
+  const [recipes, setRecipes] = useState([]);
 
-  // Function to update ingredient IDs based on search results
-  const handleSearch = (ingredients) => {
-    setIngredientIds(ingredients);
+  // Function to update recipes based on search results
+  const handleSearch = (recipes) => {
+    setRecipes(recipes);
   };
 
   return (
@@ -28,7 +28,7 @@ function Cookbook() {
 
         {/* Grid item for displaying cookbook cards */}
         <Grid item xs={12}>
-          <CookbookCards ingredients={ingredientIds} />
+          <CookbookCards recipes={recipes} />
         </Grid>
       </Grid>
     </Container>
