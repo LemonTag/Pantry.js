@@ -69,9 +69,11 @@ const resolvers = {
       return { token, user };
     },
 
-    addIngredient: async (parent, args, context) => {
-      if (!context.user) throw new AuthenticationError('You must be logged in');
-      const ingredient = await Ingredient.create(args);
+    addIngredient: async (parent, { food, text, quantity, measure, weight  }, context) => {
+      // if (!context.user) throw new AuthenticationError('You must be logged in');
+      console.log(food)
+      const ingredient =  new Ingredient({ food, text, quantity, measure, weight });
+      await ingredient.save()
       return ingredient;
     },
 

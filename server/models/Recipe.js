@@ -8,11 +8,9 @@ const recipeSchema = new Schema({
     },
     image:{
         type:String,
-        required:true
+        
     },
-    instructions:[{
-        type:String,   
-    }],
+    
     url:{
         type:String
     },

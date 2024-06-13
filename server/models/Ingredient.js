@@ -1,33 +1,26 @@
 const { Schema, model } = require("mongoose");
-const dateFormat = require("../utils/dateFormat");
 
-const ingredientSchema = new Schema({
+const ingredientSchema = new Schema(
+  {
     text: {
-        type: String,
-        required: true
-      },
-      quantity: {
-        type: Number,
-        required: true
-      },
-      measure: {
-        type: String,
-        required: true
-      },
-      food: {
-        type: String,
-        required: true
-      },
-      weight: {
-        type: Number,
-        required: true
-      },
-      foodId: {
-        type: String,
-        required: true,
-        unique: true
-      }
-    });
+      type: String,
+    },
+    quantity: {
+      type: Number,
+    },
+    measure: {
+      type: String,
+    },
+    food: {
+      type: String,
+      
+    },
+    weight: {
+      type: Number,
+    },
+     },
+  { toJSON: { virtuals: true } }
+);
 
 const Ingredient = model("Ingredient", ingredientSchema);
 module.exports = Ingredient;

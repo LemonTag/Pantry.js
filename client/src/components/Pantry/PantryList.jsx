@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Checkbox, Button, Container, Typography, Grid, List, ListItem, ListItemText, ListItemSecondaryAction, FormControlLabel } from '@mui/material';
 import { useQuery } from '@apollo/client';
-import { GET_INGREDIENTS } from '../../../../server/mutations/getIngredients';
+import { GET_INGREDIENTS } from '../../utils/mutations';
 import { useNavigate } from 'react-router-dom';
 
 const PantryList = () => {

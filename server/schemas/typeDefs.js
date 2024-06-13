@@ -1,19 +1,19 @@
 const typeDefs = `
   type User {
     _id: ID
-    username: String
-    email: String
-    password: String
+    username: String!
+    email: String!
+    password: String!
   }
 
   type Ingredient {
     _id: ID
-    text: String!
-    quantity: String!
-    measure: String!
-    food: String!
-    weight: String!
-    foodId: String!
+    text: String
+    quantity: Int
+    measure: String
+    food: String
+    weight: Int
+        
   }
 
   type Recipe {
@@ -44,7 +44,7 @@ const typeDefs = `
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
   
-    addIngredient(ingredientName: String!) : Ingredient
+    addIngredient(food:String!, text: String, quantity:Int, measure:String, weight:Int): Ingredient
     updateIngredient(_id:ID!, ingredientName: String!) : Ingredient
     deleteIngredient(_id:ID!) :Ingredient
   

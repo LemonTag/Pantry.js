@@ -122,3 +122,29 @@ export const UPDATE_MONSTER = gql`
     }
   }
 `;
+export const ADD_INGREDIENT = gql`
+  mutation addIngredient($food: String!, $text: String, $quantity: Int, $measure: String, $weight: Int, ) {
+    addIngredient(food: $food, text: $text, quantity: $quantity, measure: $measure, weight: $weight) {
+      
+      text
+      quantity
+      measure
+      food
+      weight
+      
+    }
+  }
+`;
+export const GET_INGREDIENTS = gql`
+  query GetIngredients {
+    ingredients {
+      _id
+      text
+      quantity
+      measure
+      food
+      weight
+      
+    }
+  }
+`;
