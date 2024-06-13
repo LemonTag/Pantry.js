@@ -10,7 +10,7 @@ import Pantry from "./pages/Pantry.jsx";
 import Profile from "./pages/Profile";
 import ErrorPage from "./pages/ErrorPage";
 import Cookbook from "./pages/Cookbook.jsx"
-// import Testing from "./pages/Testing.jsx"
+import TipJar from "./pages/TipJar.jsx";
 import theme from './utils/theme.js';
 
 const router = createBrowserRouter([
@@ -47,10 +47,10 @@ const router = createBrowserRouter([
         path: "/cookbook",
         element: <Cookbook/>
       },
-      // {
-      //   path: "/testing",
-      //   element: <Testing/>
-      // }
+      {
+        path: "/tipjar",
+        element: <TipJar/>
+      }
     ],
   },
 ]);
