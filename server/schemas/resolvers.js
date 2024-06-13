@@ -1,4 +1,4 @@
-const { User, Monster } = require("../models");
+const { User, Recipe, Ingredient } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
@@ -9,12 +9,7 @@ const resolvers = {
     user: async (parent, { username }) => {
       return User.findOne({ username }).populate("monsters");
     },
-    monsters: async () => {
-      return Monster.find().sort({ name: 1 });
-    },
-    monster: async (parent, { monsterId }) => {
-      return Monster.findOne({ _id: monsterId });
-    },
+    
     me: async (parent, args, context) => {
       if (context.user) {
         return User.findOne({ _id: context.user._id }).populate("comments");
@@ -70,81 +65,41 @@ const resolvers = {
 
       return { token, user };
     },
-    addMonster: async (parent, { monsterName, type, habitat, weaknesses }) => {
-      const monster = await Monster.create({
-        monsterName,
-        type,
-        habitat,
-        weaknesses,
+       
+    addIngredient: async (parent, { text, quantity, measure, food, weight, foodId }) => {
+      const ingredient = await Ingredient.create({
+        text,
+        quantity,
+        measure,
+        food,
+        weight,
+        foodId,
       });
+      return ingredient;
+    },
 
-      return monster;
-    },
-    addComment: async (parent, { monsterId, commentText }, context) => {
-      if (context.user) {
-        return Monster.findOneAndUpdate(
-          { _id: monsterId },
-          {
-            $addToSet: {
-              comments: { commentText, commentAuthor: context.user.username },
-            },
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
-      }
-      throw AuthenticationError;
-    },
-    removeMonster: async (parent, { monsterId }, context) => {
-      const monster = await Monster.findOneAndDelete({
-        _id: monsterId,
-      });
-
-      return monster;
-    },
-    removeComment: async (parent, { monsterId, commentId }, context) => {
-      if (context.user) {
-        return Monster.findOneAndUpdate(
-          { _id: monsterId },
-          {
-            $pull: {
-              comments: {
-                _id: commentId,
-                commentAuthor: context.user.username,
-              },
-            },
-          },
-          { new: true }
-        );
-      }
-      throw AuthenticationError;
-    },
-    updateComment: async (parent, { monsterId, commentId, commentText }) => {
-      return Monster.findOneAndUpdate(
-        { _id: monsterId, "comments._id": commentId },
-        { $set: { "comments.$.commentText": commentText } },
-        { new: true }
-      );
-    },
-    updateMonster: async (
-      parent,
-      { monsterId, monsterName, type, habitat, weaknesses }
-    ) => {
+    updateIngredient: async (parent, { _id, text, quantity, measure, food, weight, foodId }) => {
       const updateFields = {};
-      if (monsterName) updateFields.monsterName = monsterName;
-      if (type) updateFields.type = type;
-      if (habitat) updateFields.habitat = habitat;
-      if (weaknesses) updateFields.weaknesses = weaknesses;
+      if (text) updateFields.text = text;
+      if (quantity !== undefined) updateFields.quantity = quantity;
+      if (measure) updateFields.measure = measure;
+      if (food) updateFields.food = food;
+      if (weight !== undefined) updateFields.weight = weight;
+      if (foodId) updateFields.foodId = foodId;
 
-      return Monster.findOneAndUpdate(
-        { _id: monsterId },
+      const updatedIngredient = await Ingredient.findOneAndUpdate(
+        { _id: _id },
         { $set: updateFields },
         { new: true }
       );
+      return updatedIngredient;
     },
 
+    deleteIngredient: async (parent, { _id }) => {
+      const deletedIngredient = await Ingredient.findOneAndDelete({ _id: _id });
+      return deletedIngredient;
+    },
+  
     addRecipe: async(_,{label,image,instructions,url,ingredientIds})=>{
       const recipe= await Recipe.create({
         label,
@@ -176,15 +131,13 @@ const resolvers = {
       );
     },
     
-
     deleteRecipe: async (_, { _id }) => {
       const recipe = await Recipe.findOneAndDelete({
         _id: _id,
       });
       return recipe
     }
-
-    
+   
   },
 
 };
