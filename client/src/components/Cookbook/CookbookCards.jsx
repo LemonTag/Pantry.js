@@ -1,66 +1,43 @@
-import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-import { Card, CardContent, CardMedia, Typography, Grid } from '@mui/material';
+import React from 'react';
+import { Card, CardContent, CardMedia, Typography, Grid, Button } from '@mui/material';
 
-const CookbookCards = ({ ingredients }) => {
-  const [cookbooks, setCookbooks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchCookbooks = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        const response = await axios.get(`/api/cookbooks`, {
-          params: { ingredients: ingredients.join(',') }
-        });
-        setCookbooks(response.data);
-      } catch (error) {
-        console.error('Error fetching cookbooks', error);
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (ingredients.length) {
-      fetchCookbooks();
-    }
-  }, [ingredients]);
-
-  if (loading) {
-    return <div>Loading...</div>; // Show loading indicator
-  }
-
-  if (error || !Array.isArray(cookbooks)) {
-    return <div>Error: Failed to fetch cookbooks</div>; // Show error message
-  }
-
+const CookbookCards = ({ recipes }) => {
   return (
     <Grid container spacing={3}>
-      {cookbooks.map((cookbook) => (
-        <Grid item xs={12} sm={6} md={4} key={cookbook._id}>
+      {recipes.map((recipe) => (
+        <Grid item xs={12} sm={6} md={4} key={recipe.uri}>
           <Card>
             <CardMedia
               component="img"
               height="140"
-              image={cookbook.image}
-              alt={cookbook.label}
+              image={recipe.image}
+              alt={recipe.label}
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
-                {cookbook.label}
+                {recipe.label}
               </Typography>
               <Typography variant="body2" color="textSecondary">
-                Source: {cookbook.source}
+                Ingredients:
+                <ul>
+                  {recipe.ingredientLines.map((ingredient, index) => (
+                    <li key={index}>{ingredient}</li>
+                  ))}
+                </ul>
               </Typography>
-              <Typography variant="body2" color="textSecondary">
-                <a href={cookbook.url} target="_blank" rel="noopener noreferrer">
-                  Cookbook Link
-                </a>
-              </Typography>
+              <Button variant="contained" color="primary" style={{ margin: '5px' }}>
+                Add to Favorites
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                style={{ margin: '5px' }}
+                href={recipe.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Recipe
+              </Button>
             </CardContent>
           </Card>
         </Grid>
