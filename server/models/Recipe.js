@@ -14,10 +14,9 @@ const recipeSchema = new Schema({
     url:{
         type:String
     },
-    ingredients:[{
-        type:Schema.Types.ObjectId,
-        ref:'Ingredient'
-    }],
+    ingredientLines: {
+        type:[String]
+    },
     createdAt:{
         type:Date,
         default:Date.now,

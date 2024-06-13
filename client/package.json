@@ -12,13 +12,17 @@
   "dependencies": {
     "@apollo/client": "^3.7.14",
     "@emotion/styled": "^11.11.5",
+    "@hookform/resolvers": "^3.6.0",
     "@mui/material": "^5.15.20",
+    "@stripe/stripe-js": "^3.5.0",
     "graphql": "^16.6.0",
     "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.11.2"
+    "react-hook-form": "^7.51.5",
+    "react-router-dom": "^6.11.2",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

@@ -102,7 +102,12 @@ const resolvers = {
         recipe.ingredients = ingredients.map(ingredient => ingredient._id);
         await recipe.save();
       }
-      return recipe;
+      return {
+        label: recipe.label,
+        image: recipe.image,
+        url: recipe.url,
+        ingredientLines: recipe.ingredientLines,
+      };
     },
 
     updateRecipe: async (parent, args, context) => {
