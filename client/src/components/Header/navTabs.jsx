@@ -59,6 +59,7 @@ const NavTabs = () => {
           />
         </Tabs>
       </Grid>
+
     </Grid>
   );
 };
