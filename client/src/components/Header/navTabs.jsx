@@ -57,6 +57,14 @@ const NavTabs = () => {
       className={currentPage === "/Cookbook" ? "nav-link active" : "nav-link"} 
       sx={tabStyles}
       />
+      <Tab
+      label="Tip Jar"
+      value="/TipJar"
+      component={Link}
+      to="/TipJar"
+      className={currentPage === "/TipJar" ? "nav-link active" : "nav-link"} 
+      sx={tabStyles}
+      />
     </Tabs>
     </Grid>
     </Grid>

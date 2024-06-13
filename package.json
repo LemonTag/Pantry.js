@@ -17,9 +17,11 @@
     "concurrently": "^8.2.0"
   },
   "dependencies": {
+    "@apollo/client": "^3.10.5",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@mui/material": "^5.15.20",
+    "@stripe/stripe-js": "^3.5.0",
     "apollo-server-express": "^3.13.0",
     "axios": "^1.7.2",
     "express": "^4.19.2",

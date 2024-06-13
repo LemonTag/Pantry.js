@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card, CardContent, CardMedia, Typography, Grid, Button, Fade } from '@mui/material';
-import './CookbookCards.css';
 
 const CookbookCards = ({ recipes }) => {
 
