@@ -9,7 +9,7 @@ import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { Container, Box } from '@mui/material';
+import { Container, Box, } from '@mui/material';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -40,14 +40,25 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Box sx={{ display: 'flex', minHeight: '100vh', flexDirection: 'column', background: "#FFE4B5" }}>
+      <Box sx={{
+        display: 'flex',
+        minHeight: '100vh',
+        flexDirection: 'column',
+        background: "#FFE4B5",
+        backgroundImage: `url("https://as2.ftcdn.net/v2/jpg/08/16/22/81/1000_F_816228114_BQsMoU6mKBjkWqvz3cuZZaP6x7iTcaA7.jpg")`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: '101%',
+      }}>
         <Header />
-        <Container sx={{ display: 'flex',  flexDirection: 'column', flexGrow: 1, background: "#E6FFE6" }}>
+        <Container sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1,  backgroundColor: 'hsla(0, 0%, 100%, 0.455)'}}>
+          <div className='test'>
           <Outlet />
+          </div>
         </Container>
       </Box>
     </ApolloProvider>
   );
 }
+
 
 export default App;

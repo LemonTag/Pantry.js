@@ -6,11 +6,11 @@ const Home = () => {
     <Container 
       maxWidth="md" 
       style={{ 
-        
+      
       }}
     >
       {/* Display the main text content using a Typography component with body1 variant */}
-      <Typography variant="body1">
+      <Typography variant="body1" sx={{ color: 'black'}}>
         Thar be the home page, host of hopes, dreams, and hopefully eventually some food n shit lmao
       </Typography>
     </Container>
