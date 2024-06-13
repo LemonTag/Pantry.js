@@ -135,6 +135,18 @@ export const ADD_INGREDIENT = gql`
     }
   }
 `;
+
+export const ADD_RECIPE = gql`
+  mutation addRecipe($label: String!, $image: String!, $url: String!, $ingredientLines:[ String!]!) {
+    addRecipe(label: $label, image: $image, url: $url, ingredientLines: $ingredientLines) {
+      label
+      image
+      url
+      ingredientLines
+    }
+  }
+`;
+
 export const GET_INGREDIENTS = gql`
   query GetIngredients {
     ingredients {

@@ -1,8 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { ADD_RECIPE } from '../../utils/mutations';
 import { Card, CardContent, CardMedia, Typography, Grid, Button, Fade } from '@mui/material';
 
 const CookbookCards = ({ recipes }) => {
+  const [addRecipe, { error }] = useMutation(ADD_RECIPE);
 
+  const handleAddRecipe = async (recipe) => {
+    try {
+      await addRecipe({
+        variables: {
+          label: recipe.label,
+          image: recipe.image,
+          url: recipe.url,
+          ingredientLines: recipe.ingredientLines,
+        },
+      });
+      console.log('Recipe added successfully!');
+    } catch (error) {
+      console.error('Error adding recipe:', error.message);
+      console.error('Error details:', error.graphQLErrors, error.networkError);
+      if (error.networkError && error.networkError.statusCode === 400) {
+        console.error('Bad request error:', error.networkError.result);
+      }
+    }
+  };
+  
   return (
     <Grid container spacing={3}>
       {recipes.map((recipe, index) => (
@@ -29,7 +52,12 @@ const CookbookCards = ({ recipes }) => {
                 </Typography>
               </CardContent>
               <div style={{ marginTop: 'auto', padding: '10px' }}>
-                <Button variant="contained" color="primary" style={{ minWidth: '100%', marginBottom: '10px' }}>
+              <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ minWidth: '100%', marginBottom: '10px' }}
+                  onClick={() => handleAddRecipe(recipe)}
+                >
                   Add to Favorites
                 </Button>
                 <Button

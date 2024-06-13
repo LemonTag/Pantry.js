@@ -21,7 +21,7 @@ const typeDefs = `
     label: String!
     image: String!
     url: String!
-    ingredients:[Ingredient!]!
+    ingredientLines: [String!]!
     createdAt:String!
   }
 
@@ -48,7 +48,7 @@ const typeDefs = `
     updateIngredient(_id:ID!, ingredientName: String!) : Ingredient
     deleteIngredient(_id:ID!) :Ingredient
   
-    addRecipe(label: String!, image: String, source: String, url: String, ingredientIds: [ID]): Recipe
+    addRecipe(label: String!, image: String!, url: String!, ingredientLines: String!): Recipe
     updateRecipe(_id: ID!, label: String, image: String, source: String, url: String, ingredientIds: [ID]): Recipe
     deleteRecipe(_id: ID!): Recipe
   }
