@@ -9,11 +9,13 @@ import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import { Container, Box } from '@mui/material';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
+
 
 
 // Construct request middleware that will attach the JWT token to every request as an `authorization` header
@@ -38,13 +40,12 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <div className="flex-column justify-flex-start min-100-vh">
+      <Box sx={{ display: 'flex', minHeight: '100vh', flexDirection: 'column', background: "#FFE4B5" }}>
         <Header />
-        <div className="container">
+        <Container sx={{ display: 'flex',  flexDirection: 'column', flexGrow: 1, background: "#E6FFE6" }}>
           <Outlet />
-        </div>
-        <Footer />
-      </div>
+        </Container>
+      </Box>
     </ApolloProvider>
   );
 }

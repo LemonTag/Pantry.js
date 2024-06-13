@@ -11,12 +11,15 @@ const NavTabs = () => {
   };
 
   const tabStyles = {
-    borderRadius: '10px 10px 0 0', // Rounded corners
-    backgroundColor: '#425263', // Background color for inactive tabs
+    borderRadius: '10px 10px 0 0',  // Rounded corners
+    backgroundColor: '#425263',  // Background color for inactive tabs
     marginRight: '5px',
+    ...(currentPage === '/' && {  // Apply styles only when currentPage is "/" (Home)
+      boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)', // Add box shadow
+    }),
     '&.Mui-selected': {
-      backgroundColor: '#DADADA', // Background color for active tab
-      color: '#224E9C', // Text color for active tab
+      backgroundColor: '#DADADA',  // Background color for active tab
+      color: '#224E9C',  // Text color for active tab
     },
   };
 
