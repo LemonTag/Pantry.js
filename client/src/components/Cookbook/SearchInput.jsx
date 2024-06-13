@@ -3,8 +3,11 @@ import AuthService from "../../utils/auth";
 
 const SearchInput = ({ onSearch }) => {
   const [inputValue, setInputValue] = useState('');
+
   const [searchResults, setSearchResults] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+
+
 
   const handleChange = (event) => {
     setInputValue(event.target.value);
@@ -24,8 +27,7 @@ const SearchInput = ({ onSearch }) => {
       }
 
       const data = await response.json();
-      const recipes = data.hits;
-      setSearchResults(recipes);
+      const recipes = data.hits.map(hit => hit.recipe);
       onSearch(recipes);
     } catch (error) {
       console.error('Error fetching recipes:', error);
@@ -43,6 +45,7 @@ const SearchInput = ({ onSearch }) => {
         
       />
       <button onClick={handleSearch}>Search</button>
+
       {errorMessage && <p>{errorMessage}</p>}
       {searchResults.length > 0 && (
         <ul>
@@ -59,6 +62,8 @@ const SearchInput = ({ onSearch }) => {
           ))}
         </ul>
       )}
+
+
     </div>
   );
 };

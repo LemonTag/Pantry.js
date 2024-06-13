@@ -1,67 +1,89 @@
-import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-import { Card, CardContent, CardMedia, Typography, Grid } from '@mui/material';
+import React, { useEffect, useRef, useState } from 'react';
+import { Card, CardContent, CardMedia, Typography, Grid, Button } from '@mui/material';
 
-const CookbookCards = ({ ingredients }) => {
-  const [cookbooks, setCookbooks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const CookbookCards = ({ recipes }) => {
+  const [visibleCards, setVisibleCards] = useState({});
 
+  // Ref to store each card element
+  const cardRefs = useRef([]);
+
+  // Intersection Observer setup
   useEffect(() => {
-    const fetchCookbooks = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        const response = await axios.get(`/api/cookbooks`, {
-          params: { ingredients: ingredients.join(',') }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const cardId = entry.target.dataset.cardId;
+            setVisibleCards((prev) => ({
+              ...prev,
+              [cardId]: true,
+            }));
+          }
         });
-        setCookbooks(response.data);
-      } catch (error) {
-        console.error('Error fetching cookbooks', error);
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
+      },
+      { threshold: 0.5 } // Trigger when 50% of the card is visible
+    );
+
+    // Observe each card element
+    cardRefs.current.forEach((cardRef) => {
+      observer.observe(cardRef);
+    });
+
+    // Cleanup observer on component unmount
+    return () => {
+      observer.disconnect();
     };
-
-    if (ingredients.length) {
-      fetchCookbooks();
-    }
-  }, [ingredients]);
-
-  if (loading) {
-    return <div>Loading...</div>; // Show loading indicator
-  }
-
-  if (error || !Array.isArray(cookbooks)) {
-    return <div>Error: Failed to fetch cookbooks</div>; // Show error message
-  }
+  }, []);
 
   return (
     <Grid container spacing={3}>
-      {cookbooks.map((cookbook) => (
-        <Grid item xs={12} sm={6} md={4} key={cookbook._id}>
-          <Card>
+      {recipes.map((recipe, index) => (
+        <Grid item xs={12} sm={6} md={4} key={recipe.uri}>
+          <Card
+            ref={(el) => (cardRefs.current[index] = el)}
+            data-card-id={recipe.uri} // Unique identifier for each card
+            style={{
+              opacity: visibleCards[recipe.uri] ? 1 : 0, // Apply fade-in effect based on visibility
+              transition: 'opacity 0.5s ease-in-out', // Smooth transition
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
             <CardMedia
               component="img"
               height="140"
-              image={cookbook.image}
-              alt={cookbook.label}
+              image={recipe.image}
+              alt={recipe.label}
             />
-            <CardContent>
+            <CardContent style={{ flex: '1 0 auto', maxHeight: 250, overflowY: 'auto' }}>
               <Typography gutterBottom variant="h5" component="div">
-                {cookbook.label}
+                {recipe.label}
               </Typography>
               <Typography variant="body2" color="textSecondary">
-                Source: {cookbook.source}
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                <a href={cookbook.url} target="_blank" rel="noopener noreferrer">
-                  Cookbook Link
-                </a>
+                Ingredients:
+                <ul style={{ maxHeight: 120, overflowY: 'auto', paddingInlineStart: 20 }}>
+                  {recipe.ingredientLines.map((ingredient, index) => (
+                    <li key={index}>{ingredient}</li>
+                  ))}
+                </ul>
               </Typography>
             </CardContent>
+            <div style={{ marginTop: 'auto', padding: '10px' }}>
+              <Button variant="contained" color="primary" style={{ minWidth: '100%', marginBottom: '10px' }}>
+                Add to Favorites
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                style={{ minWidth: '100%' }}
+                href={recipe.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Recipe
+              </Button>
+            </div>
           </Card>
         </Grid>
       ))}
