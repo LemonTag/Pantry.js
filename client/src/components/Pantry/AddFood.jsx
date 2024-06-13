@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Container, Typography, Grid, Checkbox, FormControlLabel, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { useMutation } from '@apollo/client';
-import { ADD_INGREDIENT } from '../../../../server/mutations/addIngredient';
+import { ADD_INGREDIENT } from '../../utils/mutations';
 
 const Pantry = () => {
   const [ingredientData, setIngredientData] = useState({
@@ -10,8 +10,9 @@ const Pantry = () => {
     measure: '',
     food: '',
     weight: '',
-    foodId: ''
+    // foodId: ''
   });
+ 
   const [customAmount, setCustomAmount] = useState(false);
 
   const [addIngredient, { loading, error }] = useMutation(ADD_INGREDIENT);
@@ -28,7 +29,7 @@ const Pantry = () => {
     setCustomAmount(!customAmount);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event) => { 
     event.preventDefault();
     try {
       const { data } = await addIngredient({
@@ -38,7 +39,7 @@ const Pantry = () => {
           measure: ingredientData.measure,
           food: ingredientData.food,
           weight: parseFloat(ingredientData.weight),
-          foodId: ingredientData.foodId
+          // foodId: ingredientData.foodId
         }
       });
       if (data) {
@@ -49,7 +50,7 @@ const Pantry = () => {
           measure: '',
           food: '',
           weight: '',
-          foodId: ''
+          // foodId: ''
         });
         setCustomAmount(false);
       }
