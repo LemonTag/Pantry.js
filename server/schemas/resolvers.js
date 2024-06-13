@@ -1,4 +1,4 @@
-const { User, Monster } = require("../models");
+const { User, Recipe, Ingredient } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
@@ -9,12 +9,7 @@ const resolvers = {
     user: async (parent, { username }) => {
       return User.findOne({ username }).populate("monsters");
     },
-    monsters: async () => {
-      return Monster.find().sort({ name: 1 });
-    },
-    monster: async (parent, { monsterId }) => {
-      return Monster.findOne({ _id: monsterId });
-    },
+    
     me: async (parent, args, context) => {
       if (context.user) {
         return User.findOne({ _id: context.user._id }).populate("comments");
@@ -70,81 +65,7 @@ const resolvers = {
 
       return { token, user };
     },
-    addMonster: async (parent, { monsterName, type, habitat, weaknesses }) => {
-      const monster = await Monster.create({
-        monsterName,
-        type,
-        habitat,
-        weaknesses,
-      });
-
-      return monster;
-    },
-    addComment: async (parent, { monsterId, commentText }, context) => {
-      if (context.user) {
-        return Monster.findOneAndUpdate(
-          { _id: monsterId },
-          {
-            $addToSet: {
-              comments: { commentText, commentAuthor: context.user.username },
-            },
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
-      }
-      throw AuthenticationError;
-    },
-    removeMonster: async (parent, { monsterId }, context) => {
-      const monster = await Monster.findOneAndDelete({
-        _id: monsterId,
-      });
-
-      return monster;
-    },
-    removeComment: async (parent, { monsterId, commentId }, context) => {
-      if (context.user) {
-        return Monster.findOneAndUpdate(
-          { _id: monsterId },
-          {
-            $pull: {
-              comments: {
-                _id: commentId,
-                commentAuthor: context.user.username,
-              },
-            },
-          },
-          { new: true }
-        );
-      }
-      throw AuthenticationError;
-    },
-    updateComment: async (parent, { monsterId, commentId, commentText }) => {
-      return Monster.findOneAndUpdate(
-        { _id: monsterId, "comments._id": commentId },
-        { $set: { "comments.$.commentText": commentText } },
-        { new: true }
-      );
-    },
-    updateMonster: async (
-      parent,
-      { monsterId, monsterName, type, habitat, weaknesses }
-    ) => {
-      const updateFields = {};
-      if (monsterName) updateFields.monsterName = monsterName;
-      if (type) updateFields.type = type;
-      if (habitat) updateFields.habitat = habitat;
-      if (weaknesses) updateFields.weaknesses = weaknesses;
-
-      return Monster.findOneAndUpdate(
-        { _id: monsterId },
-        { $set: updateFields },
-        { new: true }
-      );
-    },
-
+       
     addIngredient: async (parent, { text, quantity, measure, food, weight, foodId }) => {
       const ingredient = await Ingredient.create({
         text,
