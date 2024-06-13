@@ -1,0 +1,18 @@
+.fade-in {
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+  
+  .fade-in.fade-in {
+    opacity: 1;
+  }
+  
+  .ingredient-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .ingredient-list li {
+    margin-bottom: 4px;
+  }
+  
