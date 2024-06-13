@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Card, CardContent, CardMedia, Typography, Grid } from '@mui/material';
 
 const CookbookCards = ({ ingredients }) => {

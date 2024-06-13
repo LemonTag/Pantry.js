@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom/client";
+import React from 'react';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import App from "./App.jsx";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
@@ -9,6 +10,8 @@ import Pantry from "./pages/Pantry.jsx";
 import Profile from "./pages/Profile";
 import ErrorPage from "./pages/ErrorPage";
 import Cookbook from "./pages/Cookbook.jsx"
+// import Testing from "./pages/Testing.jsx"
+import theme from './utils/theme.js';
 
 const router = createBrowserRouter([
   {
@@ -43,11 +46,20 @@ const router = createBrowserRouter([
       {
         path: "/cookbook",
         element: <Cookbook/>
-      }
+      },
+      // {
+      //   path: "/testing",
+      //   element: <Testing/>
+      // }
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <React.StrictMode>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  </React.StrictMode>
 );
