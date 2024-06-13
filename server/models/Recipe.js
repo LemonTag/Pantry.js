@@ -12,7 +12,6 @@ const recipeSchema = new Schema({
     },
     instructions:[{
         type:String,   
-        ref: Instructions     
     }],
     url:{
         type:String
