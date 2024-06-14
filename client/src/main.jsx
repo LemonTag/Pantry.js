@@ -12,6 +12,7 @@ import ErrorPage from "./pages/ErrorPage";
 import Cookbook from "./pages/Cookbook.jsx"
 import TipJar from "./pages/TipJar.jsx";
 import theme from './utils/theme.js';
+import Favorites from './pages/Favorites.jsx';
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "/tipjar",
         element: <TipJar/>
+      },
+      {
+        path: "/Favorites",
+        element: <Favorites/>
       }
     ],
   },
