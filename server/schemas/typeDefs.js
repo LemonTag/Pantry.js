@@ -47,7 +47,8 @@ const typeDefs = `
   
     addIngredient(food:String!, text: String, quantity:Int, measure:String, weight:Int): Ingredient
     
-    updateIngredient(_id:ID!, ingredientName: String!) : Ingredient
+    updateIngredient(_id:ID!, food:String, text: String, quantity:Int, measure:String, weight:Int ) : Ingredient
+    
     deleteIngredient(_id:ID!) :Ingredient
   
     addRecipe(label: String!, image: String!, url: String!, ingredientLines: [String!]!): Recipe
