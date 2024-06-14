@@ -57,6 +57,14 @@ const NavTabs = () => {
             className={currentPage === "/Cookbook" ? "nav-link active" : "nav-link"}
             sx={tabStyles}
           />
+          <Tab
+            label="Favorites"
+            value="/Favorites"
+            component={Link}
+            to="/Favorites"
+            className={currentPage === "/Favorites" ? "nav-link active" : "nav-link"}
+            sx={tabStyles}
+          />
         </Tabs>
       </Grid>
 
