@@ -120,6 +120,7 @@ const resolvers = {
       };
     },
 
+    // Might use this
     updateRecipe: async (parent, args, context) => {
       if (!context.user) throw new AuthenticationError('You must be logged in');
       const updateFields = { ...args };
