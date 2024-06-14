@@ -49,6 +49,9 @@ const resolvers = {
     getIngredientById: async (parent, { _id }) => {
       return await Ingredient.findById(_id);
     },
+    getAllRecipes: async () => {
+      return await Recipe.find({});
+    },
   
   },
 

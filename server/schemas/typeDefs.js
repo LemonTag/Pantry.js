@@ -22,7 +22,7 @@ const typeDefs = `
     image: String!
     url: String!
     ingredientLines: [String!]!
-    createdAt:String!
+    createdAt:String
   }
 
   type Auth {
@@ -36,7 +36,7 @@ const typeDefs = `
     me: User
     getIngredientById(_id:ID):Ingredient
     getAllIngredients:[Ingredient]
-    recipes:[Recipe]
+    getAllRecipes:[Recipe]
     recipe(recipeId: ID!):Recipe
     searchRecipes(q: String!): [Recipe]
   }
