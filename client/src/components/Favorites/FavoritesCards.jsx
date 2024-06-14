@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { Grid, Card, CardMedia, CardContent, Typography, Button, Fade } from '@mui/material';
 import { GET_ALL_RECIPES } from '../../utils/queries';
 import { DELETE_RECIPE } from '../../utils/mutations';
 
 const FavoritesCards = () => {
-  const { loading, error, data, refetch } = useQuery(GET_ALL_RECIPES);
+  const { loading, error, data, refetch } = useQuery(GET_ALL_RECIPES, {
+    // Refetch on first load or whenever the data is refetched manually
+    onCompleted: () => {
+      refetch();
+    },
+  });
 
   const [deleteRecipe] = useMutation(DELETE_RECIPE, {
     update(cache, { data: { deleteRecipe } }) {
@@ -19,6 +24,11 @@ const FavoritesCards = () => {
     },
   });
 
+  useEffect(() => {
+    // Initial refetch when component mounts
+    refetch();
+  }, [refetch]);
+
   // Ensure loading and error are defined and handled
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -29,6 +39,8 @@ const FavoritesCards = () => {
   const handleDeleteRecipe = async (id) => {
     try {
       await deleteRecipe({ variables: { id } });
+      // After deleting, trigger a refetch to ensure the UI updates immediately
+      refetch();
     } catch (error) {
       console.error('Error deleting recipe:', error);
     }
