@@ -89,9 +89,9 @@ const resolvers = {
 
     updateIngredient: async (parent, args, context) => {
       if (!context.user) throw new AuthenticationError('You must be logged in');
-      const updateFields = { ...args };
+      const { _id, ...updateFields } = args;
       const updatedIngredient = await Ingredient.findOneAndUpdate(
-        { _id: args._id },
+        { _id: _id },
         { $set: updateFields },
         { new: true }
       );

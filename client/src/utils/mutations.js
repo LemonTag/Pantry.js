@@ -24,13 +24,6 @@ export const ADD_USER = gql`
   }
 `;
 
-export const REMOVE_MONSTER = gql`
-  mutation removeMonster($monsterId: ID!) {
-    removeMonster(monsterId: $monsterId) {
-      _id
-    }
-  }
-`;
 
 export const UPDATE_MONSTER = gql`
   mutation updateMonster(
@@ -74,6 +67,33 @@ export const ADD_INGREDIENT = gql`
       quantity
       measure
       food
+      weight
+    }
+  }
+`;
+
+export const UPDATE_INGREDIENT = gql`
+  mutation updateIngredient(
+    $_id: ID!,
+    $food: String,
+    $text: String,
+    $quantity: Int,
+    $measure: String,
+    $weight: Int
+  ) {
+    updateIngredient(
+      _id: $_id,
+      food: $food,
+      text: $text,
+      quantity: $quantity,
+      measure: $measure,
+      weight: $weight
+    ) {
+      _id
+      food
+      text
+      quantity
+      measure
       weight
     }
   }
