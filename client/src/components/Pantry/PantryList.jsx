@@ -1,13 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, } from 'react';
 import { Checkbox, Button, Container, Typography, List, ListItem, ListItemText, ListItemSecondaryAction, FormControlLabel, IconButton, Menu, MenuItem } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_ALL_INGREDIENTS } from '../../utils/queries';
+import { DELETE_INGREDIENT } from '../../utils/mutations';
 import { useNavigate } from 'react-router-dom';
 
 const PantryList = () => {
   const { loading, error, data } = useQuery(GET_ALL_INGREDIENTS);
-  // const [deleteIngredient] = useMutation(DELETE_INGREDIENT);
+  const [deleteIngredient] = useMutation(DELETE_INGREDIENT,{
+    update(cache, { data: { deleteIngredient } }) {
+      const { getAllIngredients } = cache.readQuery({ query: GET_ALL_INGREDIENTS});
+      const updatedIngredients = getAllIngredients.filter(
+        ingredient => ingredient._id !== deleteIngredient._id
+      );
+      cache.writeQuery({
+        query: GET_ALL_INGREDIENTS,
+        data: {
+          getAllIngredients: updatedIngredients,
+        },
+      });
+    },
+  });
+  
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [currentIngredientId, setCurrentIngredientId] = useState(null);
@@ -43,14 +58,17 @@ const PantryList = () => {
     setCurrentIngredientId(null);
   };
 
-  // const handleDelete = async () => {
-  //   try {
-  //     await deleteIngredient({ variables: { id: currentIngredientId } });
-  //     handleMenuClose();
-  //   } catch (error) {
-  //     console.error('Error deleting ingredient:', error);
-  //   }
-  // };
+  
+  const handleDelete = async () => {
+      try {
+      await deleteIngredient({ variables: { _id: currentIngredientId} });
+      
+      handleMenuClose();
+    } catch (error) {
+      console.error('Error deleting ingredient:', error);
+    }
+    
+  };
 
   return (
     <Container maxWidth="sm">
@@ -84,7 +102,7 @@ const PantryList = () => {
                 >
                   <MenuItem onClick={handleMenuClose}>Update Quantity</MenuItem>
                   {/* On click delete go here */}
-                  <MenuItem >Delete</MenuItem>
+                  <MenuItem onClick={handleDelete}>Delete</MenuItem>
                 </Menu>
               </ListItemSecondaryAction>
             </ListItem>
