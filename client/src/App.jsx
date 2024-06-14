@@ -55,6 +55,7 @@ function App() {
           <Outlet />
           </div>
         </Container>
+      <Footer />
       </Box>
     </ApolloProvider>
   );
