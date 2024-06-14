@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Button, Container, Typography, Grid, Checkbox, FormControlLabel, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { useMutation } from '@apollo/client';
 import { ADD_INGREDIENT } from '../../utils/mutations';
+import { GET_ALL_INGREDIENTS } from '../../utils/queries';
 
 const Pantry = () => {
   const [ingredientData, setIngredientData] = useState({
@@ -10,18 +11,25 @@ const Pantry = () => {
     measure: '',
     food: '',
     weight: '',
-    // foodId: ''
   });
- 
+
   const [customAmount, setCustomAmount] = useState(false);
 
-  const [addIngredient, { loading, error }] = useMutation(ADD_INGREDIENT);
+  const [addIngredient, { loading, error }] = useMutation(ADD_INGREDIENT, {
+    update(cache, { data: { addIngredient } }) {
+      const { getAllIngredients } = cache.readQuery({ query: GET_ALL_INGREDIENTS });
+      cache.writeQuery({
+        query: GET_ALL_INGREDIENTS,
+        data: { getAllIngredients: [...getAllIngredients, addIngredient] },
+      });
+    },
+  });
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setIngredientData({
       ...ingredientData,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -29,7 +37,7 @@ const Pantry = () => {
     setCustomAmount(!customAmount);
   };
 
-  const handleSubmit = async (event) => { 
+  const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const { data } = await addIngredient({
@@ -39,8 +47,7 @@ const Pantry = () => {
           measure: ingredientData.measure,
           food: ingredientData.food,
           weight: parseFloat(ingredientData.weight),
-          // foodId: ingredientData.foodId
-        }
+        },
       });
       if (data) {
         console.log('Ingredient added:', data.addIngredient);
@@ -50,7 +57,6 @@ const Pantry = () => {
           measure: '',
           food: '',
           weight: '',
-          // foodId: ''
         });
         setCustomAmount(false);
       }
