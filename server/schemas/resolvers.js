@@ -43,6 +43,13 @@ const resolvers = {
         throw new Error('Failed to fetch recipes from Edamam');
       }
     },
+    getAllIngredients: async () => {
+      return await Ingredient.find({});
+    },
+    getIngredientById: async (parent, { _id }) => {
+      return await Ingredient.findById(_id);
+    },
+  
   },
 
   Mutation: {
