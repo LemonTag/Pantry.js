@@ -24,77 +24,10 @@ export const ADD_USER = gql`
   }
 `;
 
-export const ADD_MONSTER = gql`
-  mutation addMonster(
-    $monsterName: String!
-    $type: String!
-    $habitat: String!
-    $weaknesses: [String]!
-  ) {
-    addMonster(
-      monsterName: $monsterName
-      type: $type
-      habitat: $habitat
-      weaknesses: $weaknesses
-    ) {
-      weaknesses
-      habitat
-      type
-      monsterName
-      _id
-    }
-  }
-`;
-
-export const ADD_COMMENT = gql`
-  mutation addComment($monsterId: ID!, $commentText: String!) {
-    addComment(monsterId: $monsterId, commentText: $commentText) {
-      _id
-      comments {
-        _id
-        commentText
-        createdAt
-      }
-    }
-  }
-`;
-
 export const REMOVE_MONSTER = gql`
   mutation removeMonster($monsterId: ID!) {
     removeMonster(monsterId: $monsterId) {
       _id
-    }
-  }
-`;
-
-export const REMOVE_COMMENT = gql`
-  mutation removeComment($monsterId: ID!, $commentId: ID!) {
-    removeComment(monsterId: $monsterId, commentId: $commentId) {
-      _id
-      comments {
-        _id
-        commentText
-      }
-    }
-  }
-`;
-
-export const UPDATE_COMMENT = gql`
-  mutation updateComment(
-    $monsterId: ID!
-    $commentId: ID!
-    $commentText: String!
-  ) {
-    updateComment(
-      monsterId: $monsterId
-      commentId: $commentId
-      commentText: $commentText
-    ) {
-      _id
-      comments {
-        _id
-        commentText
-      }
     }
   }
 `;
@@ -123,24 +56,54 @@ export const UPDATE_MONSTER = gql`
   }
 `;
 export const ADD_INGREDIENT = gql`
-  mutation addIngredient($food: String!, $text: String, $quantity: Int, $measure: String, $weight: Int, ) {
-    addIngredient(food: $food, text: $text, quantity: $quantity, measure: $measure, weight: $weight) {
-      
+  mutation addIngredient(
+    $food: String!
+    $text: String
+    $quantity: Int
+    $measure: String
+    $weight: Int
+  ) {
+    addIngredient(
+      food: $food
+      text: $text
+      quantity: $quantity
+      measure: $measure
+      weight: $weight
+    ) {
       text
       quantity
       measure
       food
       weight
-      
     }
   }
 `;
 
-
+export const DELETE_INGREDIENT = gql`
+  mutation deleteIngredient($_id: ID!) {
+    deleteIngredient(_id: $_id) {
+      _id
+      food
+      quantity
+      measure
+      weight
+    }
+  }
+`;
 
 export const ADD_RECIPE = gql`
-  mutation addRecipe($label: String!, $image: String!, $url: String!, $ingredientLines:[ String!]!) {
-    addRecipe(label: $label, image: $image, url: $url, ingredientLines: $ingredientLines) {
+  mutation addRecipe(
+    $label: String!
+    $image: String!
+    $url: String!
+    $ingredientLines: [String!]!
+  ) {
+    addRecipe(
+      label: $label
+      image: $image
+      url: $url
+      ingredientLines: $ingredientLines
+    ) {
       label
       image
       url
@@ -148,4 +111,3 @@ export const ADD_RECIPE = gql`
     }
   }
 `;
-
