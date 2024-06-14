@@ -136,6 +136,8 @@ export const ADD_INGREDIENT = gql`
   }
 `;
 
+
+
 export const ADD_RECIPE = gql`
   mutation addRecipe($label: String!, $image: String!, $url: String!, $ingredientLines:[ String!]!) {
     addRecipe(label: $label, image: $image, url: $url, ingredientLines: $ingredientLines) {
@@ -147,16 +149,3 @@ export const ADD_RECIPE = gql`
   }
 `;
 
-export const GET_INGREDIENTS = gql`
-  query GetIngredients {
-    ingredients {
-      _id
-      text
-      quantity
-      measure
-      food
-      weight
-      
-    }
-  }
-`;

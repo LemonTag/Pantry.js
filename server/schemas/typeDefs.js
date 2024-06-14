@@ -33,8 +33,9 @@ const typeDefs = `
   type Query {
     users: [User]
     user(username: String!): User
-    
     me: User
+    getIngredientById(_id:ID):Ingredient
+    getAllIngredients:[Ingredient]
     recipes:[Recipe]
     recipe(recipeId: ID!):Recipe
     searchRecipes(q: String!): [Recipe]
@@ -45,6 +46,7 @@ const typeDefs = `
     login(email: String!, password: String!): Auth
   
     addIngredient(food:String!, text: String, quantity:Int, measure:String, weight:Int): Ingredient
+    
     updateIngredient(_id:ID!, ingredientName: String!) : Ingredient
     deleteIngredient(_id:ID!) :Ingredient
   
