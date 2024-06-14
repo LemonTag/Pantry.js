@@ -25,7 +25,7 @@ const CookbookCards = ({ recipes }) => {
       }
     }
   };
-  
+
   return (
     <Grid container spacing={3}>
       {recipes.map((recipe, index) => (
@@ -44,15 +44,17 @@ const CookbookCards = ({ recipes }) => {
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
                   Ingredients:
+                </Typography>
+                <div>
                   <ul style={{ maxHeight: 120, overflowY: 'auto', paddingInlineStart: 20 }}>
                     {recipe.ingredientLines.map((ingredient, idx) => (
                       <li key={idx}>{ingredient}</li>
                     ))}
                   </ul>
-                </Typography>
+                </div>
               </CardContent>
               <div style={{ marginTop: 'auto', padding: '10px' }}>
-              <Button
+                <Button
                   variant="contained"
                   color="primary"
                   style={{ minWidth: '100%', marginBottom: '10px' }}
