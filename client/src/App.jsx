@@ -10,6 +10,10 @@ import { Outlet } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { Container, Box, } from '@mui/material';
+import Video from "./Video/0614.mp4";
+import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import image from '../src/assets/bg.jpg'
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -38,25 +42,70 @@ const client = new ApolloClient({
 });
 
 function App() {
+  const [cP, setcP] = useState(localStorage.getItem('page') + "1");
+  useEffect(() => {
+    const checkLocalStorage = () => {
+      const storedPage = localStorage.getItem('page') + "1"
+      if (storedPage !== cP) {
+        setcP(storedPage)
+      }
+    }
+    const intervalId = setInterval(checkLocalStorage, 1000);
+    return () => clearInterval(intervalId);
+  }, [cP])
+  console.log(cP)
   return (
     <ApolloProvider client={client}>
-      <Box sx={{
-        display: 'flex',
-        minHeight: '100vh',
-        flexDirection: 'column',
-        background: "#FFE4B5",
-        backgroundImage: `url("https://as2.ftcdn.net/v2/jpg/08/16/22/81/1000_F_816228114_BQsMoU6mKBjkWqvz3cuZZaP6x7iTcaA7.jpg")`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: '101%',
-      }}>
-        <Header />
-        <Container sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1,  backgroundColor: 'hsla(0, 0%, 100%, 0.455)'}}>
-          <div className='test'>
-          <Outlet />
-          </div>
-        </Container>
-      </Box>
-    </ApolloProvider>
+      
+
+
+        <video
+          autoPlay
+          loop
+          muted
+          style={{
+            position: "absolute",
+            width: "100%",
+            left: "50%",
+            top: "50%",
+            height: "100%",
+            objectFit: "cover",
+            transform: "translate(-50%, -50%)",
+            zIndex: "-1"
+          }}
+        >
+          <source src={Video} type="video/mp4" />
+        </video>
+        <Box sx={{
+          display: 'flex',
+          minHeight: '100vh',
+          flexDirection: 'column',
+          backgroundImage: cP === '/1'
+            ? 'none !important' : `url(${image})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '101%',
+          backgroundBlendMode: 'multiply', // Optional: Adjust background blending for better contrast
+          backgroundColor: cP === '/1'
+            ? 'transparent'
+            : 'rgba(255, 255, 255, 0.7)', // Set background color with opacity based on page
+        }}>
+          <Header />
+          <Container sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            flexGrow: 1,
+            backgroundColor: cP === '/1'
+            ? 'transparent'
+            : 'inherit',
+            overflowY: 'auto',
+            height: 'calc(100vh - 64px)'
+          }}>
+            <div className='test'>
+              <Outlet />
+            </div>
+          </Container>
+        </Box>
+        </ApolloProvider>
   );
 }
 
