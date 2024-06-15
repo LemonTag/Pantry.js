@@ -43,7 +43,7 @@ const NavTabs = () => {
 
 
   const tabsContainerStyles = {
-    marginTop: '15px',
+    marginTop: '-30px',
     marginBottom: '-16px', // Adjust as needed to remove space below tabs
   };
 
