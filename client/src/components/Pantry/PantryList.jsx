@@ -151,6 +151,7 @@ const PantryList = () => {
           quantity: parseInt(editedIngredient.quantity),
           measure: editedIngredient.measure,
           
+          
         },
       });
       handleCloseDialog();
@@ -169,10 +170,10 @@ const PantryList = () => {
 
   return (
     <Container maxWidth="sm">
-      <Typography variant="h4" sx={{ mb: 4 }}>
+      <Typography variant="h4" sx={{ mb: 4, color: 'black' }}>
         Your Pantry
       </Typography>
-      <div style={{ maxHeight: '800px', overflowY: 'auto' }}>
+      <div style={{ maxHeight: '800px', overflowY: 'auto', color: 'black' }}>
         <List>
           {data.getAllIngredients.map((ingredient) => (
             <ListItem key={ingredient._id} button onClick={() => handleOpenDialog(ingredient)}>
