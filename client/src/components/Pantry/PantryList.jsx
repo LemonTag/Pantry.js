@@ -3,7 +3,7 @@ import { Checkbox, Button, Container, Typography, List, ListItem, ListItemText, 
   DialogActions,
   DialogContent,
   DialogTitle,
-  TextField, } from '@mui/material';
+  TextField } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_ALL_INGREDIENTS } from '../../utils/queries';
