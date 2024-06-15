@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Container, Typography, Grid, Checkbox, FormControlLabel, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { useMutation } from '@apollo/client';
-import { ADD_INGREDIENT, UPDATE_INGREDIENT } from '../../utils/mutations';
+import { ADD_INGREDIENT } from '../../utils/mutations';
 import { GET_ALL_INGREDIENTS } from '../../utils/queries';
 
 const Pantry = () => {
@@ -24,7 +24,6 @@ const Pantry = () => {
       });
     },
   });
-
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -123,10 +122,7 @@ const Pantry = () => {
                     <MenuItem value="pounds">Pounds</MenuItem>
                     <MenuItem value="grams">Grams</MenuItem>
                     <MenuItem value="liters">Liters</MenuItem>
-                    <MenuItem value="ounces">Ounces</MenuItem>
-                    <MenuItem value="cups">Cups</MenuItem>
-                    <MenuItem value="tsp">TSP</MenuItem>
-                    <MenuItem value="tbsp">TBSP</MenuItem>
+                    <MenuItem value="gallons">Gallons</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
