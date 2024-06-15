@@ -7,7 +7,6 @@ import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Pantry from "./pages/Pantry.jsx";
-import Profile from "./pages/Profile";
 import ErrorPage from "./pages/ErrorPage";
 import Cookbook from "./pages/Cookbook.jsx"
 import TipJar from "./pages/TipJar.jsx";
@@ -31,14 +30,6 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <Signup />,
-      },
-      {
-        path: "/profiles/:username",
-        element: <Profile />,
-      },
-      {
-        path: "/me",
-        element: <Profile />,
       },
       {
         path: "/pantry",
