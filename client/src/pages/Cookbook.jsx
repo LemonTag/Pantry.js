@@ -15,14 +15,14 @@ function Cookbook() {
   return (
     <Container className="cp" id="cookbook" maxWidth="md">
       {/* Page title */}
-      <Typography variant="h1" sx={{ mb: 4, color:'White', }}>
+      <Typography variant="h1" sx={{ display: 'flex', mt: 3, color:'#001F3F', padding: '1px', justifyContent: 'center'}}>
         Cookbook Finder
       </Typography>
 
       {/* Grid container for layout */}
       <Grid container spacing={2}>
         {/* Grid item for search input */}
-        <Grid item xs={12}>
+        <Grid item xs={12} sx={{ mt: 0 }}>
           <SearchInput onSearch={handleSearch} />
         </Grid>
 

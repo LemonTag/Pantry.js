@@ -38,7 +38,7 @@ const Header = () => {
                 <Button variant="contained" color="primary" to="/me" component={Link} sx={{ mr: 1 }}>
                   {Auth.getProfile().data.username}'s profile
                 </Button>
-                <Button variant="outlined" onClick={logout} sx={{ mr: 1 }}>
+                <Button variant="outlined" onClick={logout} sx={{ mr: 1, fontFamily: '"Concert One", sans-serif;' }}>
                   Logout
                 </Button>
               </>
