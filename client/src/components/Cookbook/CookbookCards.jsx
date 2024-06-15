@@ -31,22 +31,22 @@ const CookbookCards = ({ recipes }) => {
       {recipes.map((recipe, index) => (
         <Grid item xs={12} sm={6} md={4} key={recipe.uri}>
           <Fade in timeout={500} style={{ transitionDelay: `${index * 200}ms` }}>
-            <Card style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <Card style={{ height: '100%', display: 'flex', flexDirection: 'column',  }}>
               <CardMedia
                 component="img"
                 height="140"
                 image={recipe.image}
                 alt={recipe.label}
               />
-              <CardContent style={{ flex: '1 0 auto', maxHeight: 250, overflowY: 'auto' }}>
+              <CardContent style={{ flex: '1 0 auto', maxHeight: 250, overflowY: 'auto', color: 'black' }}>
                 <Typography gutterBottom variant="h5" component="div">
                   {recipe.label}
                 </Typography>
-                <Typography variant="body2" color="textSecondary">
+                <Typography variant="body2" color="black" fontWeight={'bold'}>
                   Ingredients:
                 </Typography>
                 <div>
-                  <ul style={{ maxHeight: 120, overflowY: 'auto', paddingInlineStart: 20 }}>
+                  <ul style={{ maxHeight: 120, overflowY: 'auto', paddingInlineStart: 20, }}>
                     {recipe.ingredientLines.map((ingredient, idx) => (
                       <li key={idx}>{ingredient}</li>
                     ))}

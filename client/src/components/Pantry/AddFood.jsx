@@ -67,7 +67,7 @@ const Pantry = () => {
 
   return (
     <Container maxWidth="sm">
-      <Typography variant="h4" sx={{ mb: 4, color: 'White' }}>
+      <Typography variant="h4" sx={{ mb: 4, color: 'black' }}>
         Add Ingredient to Pantry
       </Typography>
       <form onSubmit={handleSubmit}>
@@ -92,7 +92,7 @@ const Pantry = () => {
                   color="primary"
                 />
               }
-              label="Add custom amounts" sx = {{color: 'white'}}
+              label="Add custom amounts" sx = {{color: 'black'}}
             />
           </Grid>
           {customAmount && (
@@ -118,6 +118,7 @@ const Pantry = () => {
                     value={ingredientData.measure}
                     onChange={handleChange}
                     required
+                    sx = {{color: 'black'}}
                   >
                     <MenuItem value="pounds">Pounds</MenuItem>
                     <MenuItem value="grams">Grams</MenuItem>
