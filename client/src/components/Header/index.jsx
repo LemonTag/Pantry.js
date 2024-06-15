@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { AppBar, Toolbar, Container, Typography, Button, Box } from "@mui/material";
 import NavTabs from './navTabs'; // Assuming NavTabs is converted to MUI as well
+import logo from '../../assets/logo.png'
 
 import Auth from "../../utils/auth";
 
@@ -25,20 +26,18 @@ const Header = () => {
                 justifyContent: "space-between",
                 fontFamily: 'Rubik Mono One, monospace;',
                 }}>
-                Pantry.js
+                <img src={logo} alt="" style={{ width: '210px', height: '160px' }} />
               </Typography>
             </Link>
-            <Typography variant="body1" noWrap component="p" sx={{ ml: 1, color:'black', display: { xs: 'none', md: 'flex', fontFamily: '"Concert One", sans-serif;' } }}>
-              what's in your fridge? 
-            </Typography>
+           
           </Box>
           <Box display="flex"> {/* Box for right section with flexbox layout */}
             {Auth.loggedIn() ? (
               <> {/* Render buttons if user is logged in */}
-                <Button variant="contained" color="primary" to="/me" component={Link} sx={{ mr: 1 }}>
+                <Button variant="contained" color="primary" to="/me" component={Link} sx={{ mr: 1,fontFamily: 'Concert One, sans-serif' }}>
                   {Auth.getProfile().data.username}'s profile
                 </Button>
-                <Button variant="outlined" onClick={logout} sx={{ mr: 1 }}>
+                <Button variant="outlined" onClick={logout} sx={{ mr: 1, fontFamily: 'Concert One, sans-serif' }}>
                   Logout
                 </Button>
               </>
