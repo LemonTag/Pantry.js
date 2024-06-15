@@ -1,6 +1,7 @@
 import { Container, Typography, } from '@mui/material';
 import {useEffect, useState} from 'react'
 import '../App.css';
+import Video from "../Video/0614.mp4"
 // Home component representing the main page of the application
 const Home = () => {
 const [animate, setAnimate] = useState(false);
@@ -13,7 +14,24 @@ useEffect(() => {
 }, []); //Run once on component mount
 
   return (
-    
+    <div>
+     <video
+          autoPlay
+          loop
+          muted
+          style={{
+            position: "absolute",
+            width: "100%",
+            left: "50%",
+            top: "50%",
+            height: "100%",
+            objectFit: "cover",
+            transform: "translate(-50%, -50%)",
+            zIndex: "-1"
+          }}
+        >
+          <source src={Video} type="video/mp4" />
+        </video>
     <Container 
       maxWidth="md" 
       sx={{  
@@ -46,6 +64,7 @@ useEffect(() => {
         "There's food at home"
       </Typography>
     </Container>
+    </div>
   );
 };
 
