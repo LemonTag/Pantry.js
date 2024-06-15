@@ -29,7 +29,7 @@ const Header = () => {
               </Typography>
             </Link>
             <Typography variant="body2" noWrap component="p" sx={{ ml: 1, color:'black', display: { xs: 'none', md: 'flex' } }}>
-              what's in your fridge? 
+              Because there's food at home
             </Typography>
           </Box>
           <Box display="flex"> {/* Box for right section with flexbox layout */}
