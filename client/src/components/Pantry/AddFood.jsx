@@ -67,7 +67,7 @@ const Pantry = () => {
 
   return (
     <Container maxWidth="sm">
-      <Typography variant="h4" sx={{ mb: 4 }}>
+      <Typography variant="h4" sx={{ mb: 4, color: 'White' }}>
         Add Ingredient to Pantry
       </Typography>
       <form onSubmit={handleSubmit}>
@@ -92,7 +92,7 @@ const Pantry = () => {
                   color="primary"
                 />
               }
-              label="Add custom amounts"
+              label="Add custom amounts" sx = {{color: 'white'}}
             />
           </Grid>
           {customAmount && (

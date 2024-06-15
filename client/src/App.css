@@ -1805,3 +1805,37 @@ label form [type='radio'] {
     align-content: center;
   }
 }
+.Mui-selected {
+  backgroundColor: "#5DBB63",
+ 
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-15px);
+  }
+  60% {
+    transform: translateY(-7px);
+  }
+}
+
+.bounce {
+  animation: bounce 0.9s;
+}
+
+
+@keyframes pop-up {
+  0% {
+    transform: scale(0); /* Start with scale 0 (invisible) */
+  }
+  100% {
+    transform: scale(1); /* End with scale 1 (normal size) */
+  }
+}
+
+.animate-pop-up {
+  animation: pop-up 0.5s cubic-bezier(0.68, 0.55, 0.27, 1.55); /* Apply animation */
+}

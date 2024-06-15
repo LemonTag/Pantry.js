@@ -15,7 +15,7 @@ const Header = () => {
     <AppBar position="static" sx={{background: '#DDf2D1'}}className="text-light mb-4 py-3"> {/* Set background color and classes */}
       <Container sx={{minWidth: '100vw', maxWidth: '100vw'}}> {/* Set container width */}
         <Toolbar disableGutters> {/* Remove default padding */}
-          <Box display="flex" flexGrow={1} alignItems="center"> {/* Box for left section with flexbox layout */}
+          <Box display="flex" flexGrow={1} flexDirection="column"> {/* Box for left section with flexbox layout */}
             <Link to="/" style={{ textDecoration: 'none' }}> {/* Link component for logo */}
               <Typography display = "flex" variant="h6" noWrap component="div" 
               sx={{    color: '#5DBB63',
@@ -24,11 +24,12 @@ const Header = () => {
                 paddingRight: '10px',
                 justifyContent: "space-between",
                 fontFamily: '"Rubik Mono One", monospace;',
+                fontShadow: 2,
                 }}>
                 Pantry.js
               </Typography>
             </Link>
-            <Typography variant="body2" noWrap component="p" sx={{ ml: 1, color:'black', display: { xs: 'none', md: 'flex' } }}>
+            <Typography variant="body1" noWrap component="p" sx={{ ml: 1, color:'black', display: { xs: 'none', md: 'flex' } }}>
               what's in your fridge? 
             </Typography>
           </Box>

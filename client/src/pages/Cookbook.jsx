@@ -13,9 +13,9 @@ function Cookbook() {
   };
 
   return (
-    <Container maxWidth="md">
+    <Container className="cp" id="cookbook" maxWidth="md">
       {/* Page title */}
-      <Typography variant="h1" sx={{ mb: 4 }}>
+      <Typography variant="h1" sx={{ mb: 4, color:'White' }}>
         Cookbook Finder
       </Typography>
 
