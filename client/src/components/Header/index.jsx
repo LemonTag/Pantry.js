@@ -19,17 +19,16 @@ const Header = () => {
             <Link to="/" style={{ textDecoration: 'none' }}> {/* Link component for logo */}
               <Typography display = "flex" variant="h6" noWrap component="div" 
               sx={{    color: '#5DBB63',
-                fontStyle: 'bold',
+                fontWeight: 'bold',
                 fontSize: '25px',
                 paddingRight: '10px',
                 justifyContent: "space-between",
-                fontFamily: '"Rubik Mono One", monospace;',
-                fontShadow: 2,
+                fontFamily: 'Rubik Mono One, monospace;',
                 }}>
                 Pantry.js
               </Typography>
             </Link>
-            <Typography variant="body1" noWrap component="p" sx={{ ml: 1, color:'black', display: { xs: 'none', md: 'flex' } }}>
+            <Typography variant="body1" noWrap component="p" sx={{ ml: 1, color:'black', display: { xs: 'none', md: 'flex', fontFamily: '"Concert One", sans-serif;' } }}>
               what's in your fridge? 
             </Typography>
           </Box>
@@ -45,10 +44,10 @@ const Header = () => {
               </>
             ) : (
               <> {/* Render buttons if user is not logged in */}
-                <Button variant="contained" color="primary" to="/login" component={Link} sx={{ mr: 1, background: '#5DBB63', boxShadow: 2, }}>
+                <Button variant="contained" color="primary" to="/login" component={Link} sx={{ mr: 1, background: '#5DBB63', boxShadow: 2, fontFamily: 'Concert One, sans-serif'}}>
                   Login
                 </Button>
-                <Button variant="outlined" to="/signup" component={Link} sx={{ mr: 1, background: 'white', boxShadow: 2,}}>
+                <Button variant="outlined" to="/signup" component={Link} sx={{ mr: 1, background: 'white', boxShadow: 2, fontFamily: 'Concert One, sans-serif'}}>
                   Signup
                 </Button>
               </>
