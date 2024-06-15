@@ -31,13 +31,16 @@ const NavTabs = () => {
     backgroundColor: '#425263',  // Background color for inactive tabs
     marginRight: '50px',
     boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)', // Add box shadow
-    backgroundColor: '#DADADA',  // Background color for active tab
-    color: '#224E9C',  // Text color for active tab.
+    color: 'White',  // Text color for active tab
     minWidth: '100px',
+    fontFamily: '"Concert One", sans-serif',  // Change to desired font family
+    fontSize: '16px',  // Change to desired font size
+    fontWeight: 'bold',  // Change to desired font weight
     '&.Mui-selected': {
       backgroundColor: "#5DBB63",
     },
   };
+
 
   const tabsContainerStyles = {
     marginTop: '15px',
