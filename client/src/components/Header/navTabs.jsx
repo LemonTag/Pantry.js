@@ -83,6 +83,14 @@ const NavTabs = () => {
             sx={tabStyles}
             classes={{ root: bounceTab === "/Cookbook" ? 'bounce' : '' }}
           />
+          <Tab
+            label="Favorites"
+            value="/Favorites"
+            component={Link}
+            to="/Favorites"
+            className={currentPage === "/Favorites" ? "nav-link active" : "nav-link"}
+            sx={tabStyles}
+          />
         </Tabs>
       </Grid>
     </Grid>

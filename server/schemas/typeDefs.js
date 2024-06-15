@@ -21,8 +21,8 @@ const typeDefs = `
     label: String!
     image: String!
     url: String!
-    ingredients:[Ingredient!]!
-    createdAt:String!
+    ingredientLines: [String!]!
+    createdAt:String
   }
 
   type Auth {
@@ -33,9 +33,10 @@ const typeDefs = `
   type Query {
     users: [User]
     user(username: String!): User
-    
     me: User
-    recipes:[Recipe]
+    getIngredientById(_id:ID):Ingredient
+    getAllIngredients:[Ingredient]
+    getAllRecipes:[Recipe]
     recipe(recipeId: ID!):Recipe
     searchRecipes(q: String!): [Recipe]
   }
@@ -45,10 +46,12 @@ const typeDefs = `
     login(email: String!, password: String!): Auth
   
     addIngredient(food:String!, text: String, quantity:Int, measure:String, weight:Int): Ingredient
-    updateIngredient(_id:ID!, ingredientName: String!) : Ingredient
+    
+    updateIngredient(_id:ID!, food:String, text: String, quantity:Int, measure:String, weight:Int ) : Ingredient
+    
     deleteIngredient(_id:ID!) :Ingredient
   
-    addRecipe(label: String!, image: String, source: String, url: String, ingredientIds: [ID]): Recipe
+    addRecipe(label: String!, image: String!, url: String!, ingredientLines: [String!]!): Recipe
     updateRecipe(_id: ID!, label: String, image: String, source: String, url: String, ingredientIds: [ID]): Recipe
     deleteRecipe(_id: ID!): Recipe
   }

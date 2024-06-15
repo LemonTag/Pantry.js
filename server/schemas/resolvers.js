@@ -43,6 +43,16 @@ const resolvers = {
         throw new Error('Failed to fetch recipes from Edamam');
       }
     },
+    getAllIngredients: async () => {
+      return await Ingredient.find({});
+    },
+    getIngredientById: async (parent, { _id }) => {
+      return await Ingredient.findById(_id);
+    },
+    getAllRecipes: async () => {
+      return await Recipe.find({});
+    },
+  
   },
 
   Mutation: {
@@ -79,9 +89,9 @@ const resolvers = {
 
     updateIngredient: async (parent, args, context) => {
       if (!context.user) throw new AuthenticationError('You must be logged in');
-      const updateFields = { ...args };
+      const { _id, ...updateFields } = args;
       const updatedIngredient = await Ingredient.findOneAndUpdate(
-        { _id: args._id },
+        { _id: _id },
         { $set: updateFields },
         { new: true }
       );
@@ -102,9 +112,15 @@ const resolvers = {
         recipe.ingredients = ingredients.map(ingredient => ingredient._id);
         await recipe.save();
       }
-      return recipe;
+      return {
+        label: recipe.label,
+        image: recipe.image,
+        url: recipe.url,
+        ingredientLines: recipe.ingredientLines,
+      };
     },
 
+    // Might use this
     updateRecipe: async (parent, args, context) => {
       if (!context.user) throw new AuthenticationError('You must be logged in');
       const updateFields = { ...args };

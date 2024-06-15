@@ -56,9 +56,6 @@ function App() {
   console.log(cP)
   return (
     <ApolloProvider client={client}>
-      
-
-
         <video
           autoPlay
           loop
@@ -104,6 +101,7 @@ function App() {
               <Outlet />
             </div>
           </Container>
+         <Footer />
         </Box>
         </ApolloProvider>
   );

@@ -7,11 +7,11 @@ import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Pantry from "./pages/Pantry.jsx";
-import Profile from "./pages/Profile";
 import ErrorPage from "./pages/ErrorPage";
 import Cookbook from "./pages/Cookbook.jsx"
 import TipJar from "./pages/TipJar.jsx";
 import theme from './utils/theme.js';
+import Favorites from './pages/Favorites.jsx';
 
 const router = createBrowserRouter([
   {
@@ -32,14 +32,6 @@ const router = createBrowserRouter([
         element: <Signup />,
       },
       {
-        path: "/profiles/:username",
-        element: <Profile />,
-      },
-      {
-        path: "/me",
-        element: <Profile />,
-      },
-      {
         path: "/pantry",
         element: <Pantry/>
       },
@@ -50,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: "/tipjar",
         element: <TipJar/>
+      },
+      {
+        path: "/Favorites",
+        element: <Favorites/>
       }
     ],
   },
