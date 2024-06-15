@@ -63,12 +63,12 @@ const FavoritesCards = () => {
                 <Typography gutterBottom variant="h5" component="div">
                   {recipe.label}
                 </Typography>
-                <Typography variant="body2" color="textSecondary">
+                <Typography variant="body2" color="black" sx={{fontWeight: 'bold'}}>
                   Ingredients:
                 </Typography>
                 <div>
                   {/* Handle Ingredient Overflow */}
-                  <ul style={{ maxHeight: 120, overflowY: 'auto', paddingInlineStart: 20 }}>
+                  <ul style={{ maxHeight: 120, overflowY: 'auto', paddingInlineStart: 20, color: 'black' }} >
                     {recipe.ingredientLines.map((ingredient, idx) => (
                       <li key={idx}>{ingredient}</li>
                     ))}
@@ -84,6 +84,7 @@ const FavoritesCards = () => {
                   href={recipe.url}
                   target="_blank"
                   rel="noopener noreferrer"
+                
                 >
                   View Recipe
                 </Button>
