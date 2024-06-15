@@ -10,8 +10,6 @@ import { Outlet } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { Container, Box, } from '@mui/material';
-import Video from "./Video/0614.mp4";
-import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import image from '../src/assets/bg.jpg'
 
@@ -56,23 +54,7 @@ function App() {
   console.log(cP)
   return (
     <ApolloProvider client={client}>
-        <video
-          autoPlay
-          loop
-          muted
-          style={{
-            position: "absolute",
-            width: "100%",
-            left: "50%",
-            top: "50%",
-            height: "100%",
-            objectFit: "cover",
-            transform: "translate(-50%, -50%)",
-            zIndex: "-1"
-          }}
-        >
-          <source src={Video} type="video/mp4" />
-        </video>
+       
         <Box sx={{
           display: 'flex',
           minHeight: '100vh',
