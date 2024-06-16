@@ -36,7 +36,7 @@ const SearchInput = ({ onSearch }) => {
   return (
     <Box sx={{ padding: 2 }}>
       <TextField
-        label="Enter ingredient IDs, separated by commas"
+        label="Enter Ingredients, Separated with Commas"
         variant="outlined"
         fullWidth
         value={inputValue}
@@ -44,12 +44,13 @@ const SearchInput = ({ onSearch }) => {
         sx={{ marginBottom: 2,
           '& .MuiOutlinedInput-root': {
             '&:hover fieldset': {
-              borderColor: '#5DBB63', // Change border color to red on hover
+              borderColor: '#5DBB63', 
+              
             },
           },
         }}
         InputLabelProps={{
-          style: { color: 'black'}
+          style: { color: '#001F3F'}
           
         }}
       />

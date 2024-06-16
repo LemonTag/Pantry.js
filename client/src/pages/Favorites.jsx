@@ -5,7 +5,7 @@ import FavoritesCards from '../components/Favorites/FavoritesCards';
 const Favorites = () => {
   return (
     <Container maxWidth="lg">
-      <Typography variant="h4" sx={{ mt: 3, color: '#001F3F', display: 'flex', justifyContent: 'center'}}>
+      <Typography variant="h1" sx={{  color: '#001F3F', display: 'flex', justifyContent: 'center'}}>
         Your Favorites
       </Typography>
       <FavoritesCards />

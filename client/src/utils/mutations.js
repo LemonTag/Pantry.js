@@ -24,30 +24,6 @@ export const ADD_USER = gql`
   }
 `;
 
-
-export const UPDATE_MONSTER = gql`
-  mutation updateMonster(
-    $monsterId: ID!
-    $monsterName: String
-    $type: String
-    $habitat: String
-    $weaknesses: [String]
-  ) {
-    updateMonster(
-      monsterId: $monsterId
-      monsterName: $monsterName
-      type: $type
-      habitat: $habitat
-      weaknesses: $weaknesses
-    ) {
-      _id
-      monsterName
-      type
-      habitat
-      weaknesses
-    }
-  }
-`;
 export const ADD_INGREDIENT = gql`
   mutation addIngredient(
     $food: String!

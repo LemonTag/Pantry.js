@@ -53,7 +53,7 @@ function App() {
     const intervalId = setInterval(checkLocalStorage, 1000);
     return () => clearInterval(intervalId);
   }, [cP])
-  console.log(cP)
+  
   return (
     <ApolloProvider client={client}>
        <ThemeProvider theme={theme}>
@@ -69,6 +69,7 @@ function App() {
           backgroundColor: cP === '/1'
             ? 'transparent'
             : 'rgba(255, 255, 255, 0.7)', // Set background color with opacity based on page
+            
         }}>
           <Header />
           <Container sx={{
