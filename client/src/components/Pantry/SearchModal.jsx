@@ -6,6 +6,7 @@ import CookbookCards from '../Cookbook/CookbookCards';
 
 const SearchModal = ({ isOpen, onClose, searchResults }) => {
   const [modalOpen, setModalOpen] = useState(false);
+  
 
   useEffect(() => {
     setModalOpen(isOpen);
