@@ -41,9 +41,16 @@ const SearchInput = ({ onSearch }) => {
         fullWidth
         value={inputValue}
         onChange={handleChange}
-        sx={{ marginBottom: 2 }}
+        sx={{ marginBottom: 2,
+          '& .MuiOutlinedInput-root': {
+            '&:hover fieldset': {
+              borderColor: '#5DBB63', // Change border color to red on hover
+            },
+          },
+        }}
         InputLabelProps={{
           style: { color: 'black'}
+          
         }}
       />
       <Button variant="contained" color="primary" onClick={handleSearch} sx={{backgroundColor: ''}}>
