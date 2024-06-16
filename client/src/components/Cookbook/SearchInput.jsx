@@ -53,7 +53,7 @@ const SearchInput = ({ onSearch }) => {
           
         }}
       />
-      <Button variant="contained" color="primary" onClick={handleSearch} sx={{backgroundColor: ''}}>
+      <Button variant="contained" color="primary" onClick={handleSearch} sx={{backgroundColor: '#001F3F'}}>
         Search
       </Button>
 

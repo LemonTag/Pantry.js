@@ -12,6 +12,8 @@ import Footer from './components/Footer';
 import { Container, Box, } from '@mui/material';
 import { useState, useEffect } from 'react';
 import image from '../src/assets/bg.jpg'
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './themes/theme'
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -54,7 +56,7 @@ function App() {
   console.log(cP)
   return (
     <ApolloProvider client={client}>
-       
+       <ThemeProvider theme={theme}>
         <Box sx={{
           display: 'flex',
           minHeight: '100vh',
@@ -85,7 +87,8 @@ function App() {
           </Container>
          <Footer />
         </Box>
-        </ApolloProvider>
+      </ThemeProvider>
+     </ApolloProvider>
   );
 }
 

@@ -34,7 +34,7 @@ const Header = () => {
           <Box display="flex"> {/* Box for right section with flexbox layout */}
             {Auth.loggedIn() ? (
               <> {/* Render buttons if user is logged in */}
-                <Button variant="contained" color="primary" to="/me" component={Link} sx={{ mr: 1,fontFamily: 'Concert One, sans-serif' }}>
+                <Button variant="contained" color="primary" to="/me" component={Link} sx={{ mr: 1,backgroundColor: '#001F3F' }}>
                   {Auth.getProfile().data.username}'s profile
                 </Button>
 
@@ -45,7 +45,7 @@ const Header = () => {
               </>
             ) : (
               <> {/* Render buttons if user is not logged in */}
-                <Button variant="contained" color="primary" to="/login" component={Link} sx={{ mr: 1, background: '#5DBB63', boxShadow: 2, fontFamily: 'Concert One, sans-serif'}}>
+                <Button variant="contained" color="primary" to="/login" component={Link} sx={{ mr: 1, background: '#5DBB63', boxShadow: 2, fontFamily: 'Concert One, sans-serif', backgroundColor: '#001F3F'}}>
                   Login
                 </Button>
                 <Button variant="outlined" to="/signup" component={Link} sx={{ mr: 1, background: 'white', boxShadow: 2, fontFamily: 'Concert One, sans-serif'}}>

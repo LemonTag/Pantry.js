@@ -154,7 +154,7 @@ const Pantry = () => {
             </>
           )}
           <Grid item xs={12}>
-            <Button variant="contained" color="primary" type="submit" disabled={loading}>
+            <Button variant="contained" color="primary" type="submit" disabled={loading} sx={{backgroundColor:'#001F3F'}}>
               {loading ? 'Adding...' : 'Add Ingredient'}
             </Button>
           </Grid>

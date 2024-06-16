@@ -47,7 +47,7 @@ const SearchModal = ({ isOpen, onClose, searchResults }) => {
       aria-describedby="search-modal-description"
     >
       <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 900, height: 800, overflowY: 'auto', bgcolor: 'background.paper', boxShadow: 24, p: 4, }}>
-        <Typography variant="h4" align="center" sx={{ mb: 4 }}>
+        <Typography variant="h4" align="center" sx={{ mb: 4, color:'#E6FFE6', fontSize:'40px' }}>
           Search Results
         </Typography>
         <CookbookCards recipes={searchResults} handleAddRecipe={handleAddRecipe} />
