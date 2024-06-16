@@ -1,4 +1,4 @@
-import React, { useState, } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Checkbox, Button, Container, Typography, List, ListItem, ListItemText, ListItemSecondaryAction, FormControlLabel, IconButton, Menu, MenuItem, Dialog,
   DialogActions,
   DialogContent,
@@ -43,6 +43,16 @@ const PantryList = () => {
   const [searchResults, setSearchResults] = useState([]); // State to hold search results
   const [errorMessage, setErrorMessage] = useState(''); // State for error message
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+    setIsLoggedIn(AuthService.loggedIn());
+  }, []);
+
+  if (!isLoggedIn) {
+    return null; // Return null to render nothing if user is not logged in
+  }
+
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -131,12 +141,17 @@ const PantryList = () => {
     }    
   };
 
-  const handleOpenDialog = (ingredient) => {
-    setEditedIngredient(ingredient);
-    setOpenDialog(true);
+  const handleOpenDialog = (id) => {
+    const ingredient = data.getAllIngredients.find(ing => ing._id === id);
+    if (ingredient) {
+      setEditedIngredient(ingredient);
+      setOpenDialog(true);
+    }
   };
+  
 
   const handleCloseDialog = () => {
+    
     setOpenDialog(false);
     setEditedIngredient(null);
   };
@@ -198,7 +213,7 @@ const PantryList = () => {
                   open={Boolean(anchorEl)}
                   onClose={handleMenuClose}
                 >
-                  <MenuItem onClick={() => handleOpenDialog(ingredient)}>Update</MenuItem>
+                  <MenuItem onClick={() => handleOpenDialog(currentIngredientId)}>Update</MenuItem>
                   <MenuItem onClick={() => handleDelete(ingredient._id)}>Delete</MenuItem>
                 </Menu>
               </ListItemSecondaryAction>
