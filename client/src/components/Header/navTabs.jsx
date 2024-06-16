@@ -39,6 +39,9 @@ const NavTabs = () => {
     '&.Mui-selected': {
       backgroundColor: "#5DBB63",
     },
+    '&: hover':{
+      backgroundColor: "#5DBB63",
+    }
   };
 
 
@@ -93,6 +96,7 @@ const NavTabs = () => {
             to="/Favorites"
             className={currentPage === "/Favorites" ? "nav-link active" : "nav-link"}
             sx={tabStyles}
+            classes={{ root: bounceTab === "/Favorites" ? 'bounce' : '' }}
           />
         </Tabs>
       </Grid>

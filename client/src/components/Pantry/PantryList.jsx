@@ -181,8 +181,11 @@ const PantryList = () => {
       <div style={{ maxHeight: '800px', overflowY: 'auto', color: 'black' }}>
         <List>
           {data.getAllIngredients.map((ingredient) => (
+
             <ListItem key={ingredient._id} button onClick={() => handleOpenDialog(ingredient._id)}>
+
               <ListItemText
+
                 primary={ingredient.food}
                 secondary={`Quantity: ${ingredient.quantity || ''} ${ingredient.measure || ''}`}
               />

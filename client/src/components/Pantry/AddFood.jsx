@@ -90,13 +90,20 @@ const Pantry = () => {
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <TextField
+          <TextField
               label="Food Item"
               name="food"
               value={ingredientData.food}
               onChange={handleChange}
               fullWidth
               required
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  '&:hover fieldset': {
+                    borderColor: '#5DBB63', // Change border color to red on hover
+                  },
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12}>
