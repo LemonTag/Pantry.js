@@ -1331,6 +1331,12 @@ label form [type='radio'] {
   max-width: 100%;
 }
 
+.MuiListItem-container {
+  list-style: none;
+ }
+
+
+
 /* col-sm */
 @media screen and (min-width: 640px) {
   .col-sm-auto {

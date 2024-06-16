@@ -84,8 +84,8 @@ const Pantry = () => {
 
   return (
     <Container maxWidth="sm">
-      <Typography variant="h4" sx={{ mb: 4, color: 'black' }}>
-        Add Ingredient to Pantry
+      <Typography variant="h4" sx={{ mb: 4, color: '#001F3F'}}>
+        Add Ingredients to List
       </Typography>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
@@ -116,7 +116,7 @@ const Pantry = () => {
                   color="primary"
                 />
               }
-              label="Add custom amounts" sx = {{color: 'black'}}
+              label="Add Custom Amount" sx = {{color: '#001F3F'}}
             />
           </Grid>
           {customAmount && (
