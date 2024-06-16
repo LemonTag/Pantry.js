@@ -46,7 +46,7 @@ const SearchInput = ({ onSearch }) => {
           style: { color: 'black'}
         }}
       />
-      <Button variant="contained" color="primary" onClick={handleSearch} sx={{backgroundColor: ''}}>
+      <Button variant="contained" color="primary" onClick={handleSearch} sx={{backgroundColor: '#001F3F'}}>
         Search
       </Button>
 

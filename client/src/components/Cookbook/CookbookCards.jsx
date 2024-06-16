@@ -55,16 +55,18 @@ const CookbookCards = ({ recipes }) => {
               </CardContent>
               <div style={{ marginTop: 'auto', padding: '10px' }}>
                 <Button
+                  sx={{backgroundColor:'#5DBB63'}}
                   variant="contained"
-                  color="primary"
+                  color={"primary"}
                   style={{ minWidth: '100%', marginBottom: '10px' }}
                   onClick={() => handleAddRecipe(recipe)}
                 >
                   Add to Favorites
                 </Button>
-                <Button
+                <Button 
+                  sx={{backgroundColor:'#BB5D7C'}}
                   variant="contained"
-                  color="secondary"
+                  color={"primary"}
                   style={{ minWidth: '100%' }}
                   href={recipe.url}
                   target="_blank"

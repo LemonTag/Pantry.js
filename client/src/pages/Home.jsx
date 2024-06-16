@@ -60,7 +60,7 @@ useEffect(() => {
         </Typography>
     
       {/* Display the main text content using a Typography component with body1 variant */}
-      <Typography variant="body1" sx={{ color: 'white', fontFamily: '"Concert One", sans-serif;', fontSize:"30px"}}>
+      <Typography variant="body1" sx={{ color: 'white', fontFamily: '"Concert One", sans-serif', fontSize:"30px"}}>
         "There's food at home"
       </Typography>
     </Container>

@@ -18,10 +18,9 @@ const PantryList = () => {
     refetchQueries: [{ query: GET_ALL_INGREDIENTS }],
   });
 
-
-  const [deleteIngredient] = useMutation(DELETE_INGREDIENT,{
+  const [deleteIngredient] = useMutation(DELETE_INGREDIENT, {
     update(cache, { data: { deleteIngredient } }) {
-      const { getAllIngredients } = cache.readQuery({ query: GET_ALL_INGREDIENTS});
+      const { getAllIngredients } = cache.readQuery({ query: GET_ALL_INGREDIENTS });
       const updatedIngredients = getAllIngredients.filter(
         ingredient => ingredient._id !== deleteIngredient._id
       );
@@ -33,7 +32,7 @@ const PantryList = () => {
       });
     },
   });
-  
+
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [editedIngredient, setEditedIngredient] = useState(null);
@@ -45,14 +44,13 @@ const PantryList = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    useEffect(() => {
+  useEffect(() => {
     setIsLoggedIn(AuthService.loggedIn());
   }, []);
 
   if (!isLoggedIn) {
     return null; // Return null to render nothing if user is not logged in
   }
-
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -119,62 +117,54 @@ const PantryList = () => {
     setSearchResults([]); // Clear search results
   };
 
-
   const handleMenuClick = (event, id) => {
     setAnchorEl(event.currentTarget);
-    setCurrentIngredientId(id);
+    setCurrentIngredientId(id); // Set currentIngredientId when menu clicked
   };
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-    setCurrentIngredientId(null);
+    setCurrentIngredientId(null); // Reset currentIngredientId on menu close
   };
 
- 
   const handleDelete = async () => {
-      try {
-      await deleteIngredient({ variables: { _id: currentIngredientId} });
-      
+    try {
+      await deleteIngredient({ variables: { _id: currentIngredientId } });
       handleMenuClose();
     } catch (error) {
       console.error('Error deleting ingredient:', error);
-    }    
+    }
   };
 
   const handleOpenDialog = (id) => {
     const ingredient = data.getAllIngredients.find(ing => ing._id === id);
     if (ingredient) {
       setEditedIngredient(ingredient);
-      setOpenDialog(true);
+      setOpenDialog(true); // Open dialog with selected ingredient
     }
   };
-  
 
   const handleCloseDialog = () => {
-    
     setOpenDialog(false);
-    setEditedIngredient(null);
+    setEditedIngredient(null); // Close dialog and reset edited ingredient
   };
 
   const handleUpdateIngredient = async () => {
     try {
-      
       await updateIngredient({
         variables: {
           _id: editedIngredient._id,
           food: editedIngredient.food,
           quantity: parseInt(editedIngredient.quantity),
           measure: editedIngredient.measure,
-          
-          
         },
       });
-      handleCloseDialog();
+      handleCloseDialog(); // Close dialog after update
     } catch (error) {
       console.error('Error updating ingredient:', error);
     }
   };
-  
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setEditedIngredient({
@@ -191,7 +181,7 @@ const PantryList = () => {
       <div style={{ maxHeight: '800px', overflowY: 'auto', color: 'black' }}>
         <List>
           {data.getAllIngredients.map((ingredient) => (
-            <ListItem key={ingredient._id} button onClick={() => handleOpenDialog(ingredient)}>
+            <ListItem key={ingredient._id} button onClick={() => handleOpenDialog(ingredient._id)}>
               <ListItemText
                 primary={ingredient.food}
                 secondary={`Quantity: ${ingredient.quantity || ''} ${ingredient.measure || ''}`}
@@ -224,11 +214,11 @@ const PantryList = () => {
       <Button variant="contained" color="primary" onClick={handleSearch}>
         Search
       </Button>
-       {/* Render the SearchModal component */}
-       <SearchModal isOpen={modalOpen} onClose={handleCloseModal} searchResults={searchResults} />
+      {/* Render the SearchModal component */}
+      <SearchModal isOpen={modalOpen} onClose={handleCloseModal} searchResults={searchResults} />
 
-        {/* Display error message */}
-        {errorMessage && <p>{errorMessage}</p>}
+      {/* Display error message */}
+      {errorMessage && <p>{errorMessage}</p>}
 
       {editedIngredient && (
         <Dialog open={openDialog} onClose={handleCloseDialog}>
