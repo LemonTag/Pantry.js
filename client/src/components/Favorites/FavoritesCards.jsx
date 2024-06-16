@@ -78,9 +78,10 @@ const FavoritesCards = () => {
               <div style={{ marginTop: 'auto', padding: '10px' }}>
                 {/* View Recipe Button */}
                 <Button
+                 sx={{backgroundColor:'#5DBB63'}}
                   variant="contained"
                   color="primary"
-                  style={{ minWidth: '100%' }}
+                  style={{ minWidth: '100%', marginBottom: '10px', color: 'white' }}
                   href={recipe.url}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -90,14 +91,16 @@ const FavoritesCards = () => {
                 </Button>
                 {/* Delete Button */}
                 <Button
+                 sx={{backgroundColor:'#BB5D7C',}}
                   variant="contained"
-                  color="secondary"
+                  color="primary"
                   style={{ minWidth: '100%', marginBottom: '10px' }}
                   onClick={() => handleDeleteRecipe(recipe._id)}
                 >
                   Delete
                 </Button>
               </div>
+              
             </Card>
           </Fade>
         </Grid>

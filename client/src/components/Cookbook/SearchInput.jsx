@@ -44,7 +44,7 @@ const SearchInput = ({ onSearch }) => {
         sx={{ marginBottom: 2,
           '& .MuiOutlinedInput-root': {
             '&:hover fieldset': {
-              borderColor: '#5DBB63', // Change border color to red on hover
+              borderColor: '#5DBB63', // Change border color to green on hover
             },
           },
         }}

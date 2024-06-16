@@ -64,13 +64,14 @@ const CookbookCards = ({ recipes }) => {
                   Add to Favorites
                 </Button>
                 <Button 
-                  sx={{backgroundColor:'#BB5D7C'}}
+                  sx={{backgroundColor:'#BB5D7C',}}
                   variant="contained"
                   color={"primary"}
-                  style={{ minWidth: '100%' }}
+                  style={{ minWidth: '100%', color: "white" }}
                   href={recipe.url}
                   target="_blank"
                   rel="noopener noreferrer"
+                  
                 >
                   View Recipe
                 </Button>
