@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, Container, Typography, Grid, Checkbox, FormControlLabel, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { useMutation } from '@apollo/client';
 import { ADD_INGREDIENT } from '../../utils/mutations';
 import { GET_ALL_INGREDIENTS } from '../../utils/queries';
+import AuthService from "../../utils/auth";
 
 const Pantry = () => {
-  const [ingredientData, setIngredientData] = useState({
+   
+   const [ingredientData, setIngredientData] = useState({
     text: '',
     quantity: '',
     measure: '',
@@ -14,6 +16,8 @@ const Pantry = () => {
   });
 
   const [customAmount, setCustomAmount] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [addIngredient, { loading, error }] = useMutation(ADD_INGREDIENT, {
     update(cache, { data: { addIngredient } }) {
@@ -24,6 +28,10 @@ const Pantry = () => {
       });
     },
   });
+
+  useEffect(() => {
+    setIsLoggedIn(AuthService.loggedIn());
+  }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -39,7 +47,14 @@ const Pantry = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    
     try {
+        const isLoggedIn = AuthService.loggedIn();
+        if (!isLoggedIn) {
+          setErrorMessage('Must be logged in');
+          return;
+        }
+  
       const { data } = await addIngredient({
         variables: {
           text: ingredientData.text,
@@ -59,11 +74,13 @@ const Pantry = () => {
           weight: '',
         });
         setCustomAmount(false);
+        setErrorMessage('');
       }
     } catch (error) {
       console.error('Error adding ingredient:', error);
     }
   };
+  
 
   return (
     <Container maxWidth="sm">
@@ -136,6 +153,11 @@ const Pantry = () => {
           </Grid>
         </Grid>
       </form>
+      {errorMessage && (
+        <Typography variant="body1" sx={{ marginTop: 2 }}>
+          {errorMessage}
+        </Typography>
+      )}
       {error && <p>Error adding ingredient: {error.message}</p>}
     </Container>
   );
