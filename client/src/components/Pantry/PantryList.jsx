@@ -54,9 +54,9 @@ const PantryList = () => {
   const [editedIngredient, setEditedIngredient] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const [currentIngredientId, setCurrentIngredientId] = useState(null);
-  const [modalOpen, setModalOpen] = useState(false); // State to control modal open/close
-  const [searchResults, setSearchResults] = useState([]); // State to hold search results
-  const [errorMessage, setErrorMessage] = useState(""); // State for error message
+  const [modalOpen, setModalOpen] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -65,7 +65,7 @@ const PantryList = () => {
   }, []);
 
   if (!isLoggedIn) {
-    return null; // Return null to render nothing if user is not logged in
+    return null;
   }
 
   if (loading) return <p>Loading...</p>;
@@ -86,7 +86,6 @@ const PantryList = () => {
 
   const handleSearch = async () => {
     try {
-      // Ensure AuthService is defined before using it
       if (AuthService) {
         const isLoggedIn = AuthService.loggedIn();
         if (!isLoggedIn) {
@@ -99,7 +98,6 @@ const PantryList = () => {
         return;
       }
 
-      // Get selected ingredient names to use as keywords
       const selectedIngredientNames = data.getAllIngredients
         .filter((ingredient) => selectedIngredients.includes(ingredient._id))
         .map((ingredient) => ingredient.food);
@@ -109,10 +107,8 @@ const PantryList = () => {
         return;
       }
 
-      // Construct query string with selected ingredient names
       const queryString = selectedIngredientNames.join("+");
 
-      // Perform API request to Edamam with the constructed query string
       const response = await fetch(
         `https://api.edamam.com/search?q=${queryString}&app_id=e60d45ac&app_key=fcb5780894c4282cc330af20f9a037df`
       );
@@ -123,7 +119,7 @@ const PantryList = () => {
       const responseData = await response.json();
       const recipes = responseData.hits.map((hit) => hit.recipe);
       setSearchResults(recipes);
-      setModalOpen(true); // Open the modal with search results
+      setModalOpen(true);
     } catch (error) {
       console.error("Error fetching recipes:", error);
       setErrorMessage("Failed to fetch recipes");
@@ -131,18 +127,18 @@ const PantryList = () => {
   };
 
   const handleCloseModal = () => {
-    setModalOpen(false); // Close the modal
-    setSearchResults([]); // Clear search results
+    setModalOpen(false);
+    setSearchResults([]);
   };
 
   const handleMenuClick = (event, id) => {
     setAnchorEl(event.currentTarget);
-    setCurrentIngredientId(id); // Set currentIngredientId when menu clicked
+    setCurrentIngredientId(id);
   };
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-    setCurrentIngredientId(null); // Reset currentIngredientId on menu close
+    setCurrentIngredientId(null);
   };
 
   const handleDelete = async () => {
@@ -158,13 +154,13 @@ const PantryList = () => {
     const ingredient = data.getAllIngredients.find((ing) => ing._id === id);
     if (ingredient) {
       setEditedIngredient(ingredient);
-      setOpenDialog(true); // Open dialog with selected ingredient
+      setOpenDialog(true);
     }
   };
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
-    setEditedIngredient(null); // Close dialog and reset edited ingredient
+    setEditedIngredient(null);
   };
 
   const handleUpdateIngredient = async () => {
@@ -177,7 +173,7 @@ const PantryList = () => {
           measure: editedIngredient.measure,
         },
       });
-      handleCloseDialog(); // Close dialog after update
+      handleCloseDialog();
     } catch (error) {
       console.error("Error updating ingredient:", error);
     }
@@ -200,15 +196,13 @@ const PantryList = () => {
         {data.getAllIngredients.map((ingredient) => (
           <Grid item xs={12} key={ingredient._id}>
             <ListItem
-              dis 
-              key={ingredient._id}
               onClick={() => handleOpenDialog(ingredient._id)}
               sx={{
                 "&:hover": {
-                  backgroundColor: "rgba(240, 240, 240, 0.5)", // Light translucent background color on hover
+                  backgroundColor: "rgba(240, 240, 240, 0.5)",
                 },
-                mb:2,
-                cursor: "pointer", // Change cursor to pointer on hover
+                mb: 2,
+                cursor: "pointer",
                 listStyleType: "none",
               }}
             >
@@ -217,10 +211,12 @@ const PantryList = () => {
                 secondary={`Quantity: ${ingredient.quantity || ""} ${
                   ingredient.measure || ""
                 }`}
-                primaryTypographyProps={{ sx: { color: "#001F3F" } }} // Ensure primary text color is consistent
-                secondaryTypographyProps={{ sx: { color: "#001F3F" } }} // Ensure secondary text color is consistent
+                primaryTypographyProps={{ sx: { color: "#001F3F" } }}
+                secondaryTypographyProps={{ sx: { color: "#001F3F" } }}
               />
-              <ListItemSecondaryAction  sx={{ paddingRight: '20px', '& > *': { listStyle: 'none' } }}>
+              <ListItemSecondaryAction
+                sx={{ paddingRight: '20px', '& > *': { listStyle: 'none' } }}
+              >
                 <FormControlLabel
                   control={
                     <Checkbox

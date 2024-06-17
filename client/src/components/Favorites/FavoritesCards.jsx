@@ -12,14 +12,16 @@ const FavoritesCards = () => {
   }
 
   const currentUserId = AuthService.getProfile().data._id;
-
   const { loading, error, data, refetch } = useQuery(GET_ALL_RECIPES, {
     variables: { userId: currentUserId },
   });
 
   const [deleteRecipe] = useMutation(DELETE_RECIPE, {
     update(cache, { data: { deleteRecipe } }) {
-      const { getRecipesByUser } = cache.readQuery({ query: GET_ALL_RECIPES, variables: { userId: currentUserId } });
+      const { getRecipesByUser } = cache.readQuery({
+        query: GET_ALL_RECIPES,
+        variables: { userId: currentUserId }
+      });
       cache.writeQuery({
         query: GET_ALL_RECIPES,
         variables: { userId: currentUserId },
@@ -28,6 +30,9 @@ const FavoritesCards = () => {
         },
       });
     },
+    onError: (error) => {
+      console.error('Error deleting recipe:', error);
+    }
   });
 
   useEffect(() => {
@@ -40,11 +45,8 @@ const FavoritesCards = () => {
   const recipes = data ? data.getRecipesByUser : [];
 
   const handleDeleteRecipe = async (id) => {
-    console.log('Deleting recipe with id:', id);
-    const variables = { id };
-    console.log('Variables:', variables);
     try {
-      await deleteRecipe({ variables });
+      await deleteRecipe({ variables: { id } });
       refetch();
     } catch (error) {
       console.error('Error deleting recipe:', error);
@@ -57,12 +59,7 @@ const FavoritesCards = () => {
         <Grid item xs={12} sm={6} md={4} key={recipe._id}>
           <Fade in timeout={500} style={{ transitionDelay: `${index * 200}ms` }}>
             <Card style={{ height: '100%', display: 'flex', flexDirection: 'column' }} data-recipe-id={recipe._id}>
-              <CardMedia
-                component="img"
-                height="140"
-                image={recipe.image}
-                alt={recipe.label}
-              />
+              <CardMedia component="img" height="140" image={recipe.image} alt={recipe.label} />
               <CardContent style={{ flex: '1 0 auto', maxHeight: 250, overflowY: 'auto' }}>
                 <Typography gutterBottom variant="h5" component="div">
                   {recipe.label}
@@ -71,9 +68,9 @@ const FavoritesCards = () => {
                   Ingredients:
                 </Typography>
                 <div>
-                  <ul style={{ maxHeight: 120, overflowY: 'auto', paddingInlineStart: 20, color: 'black' }} >
+                  <ul style={{ maxHeight: 120, overflowY: 'auto', paddingInlineStart: 20, color: 'black' }}>
                     {recipe.ingredientLines.map((ingredient, idx) => (
-                      <li key={idx}>{ingredient}</li>
+                      <li key={`${recipe._id}-${idx}`}>{ingredient}</li>
                     ))}
                   </ul>
                 </div>
@@ -93,10 +90,7 @@ const FavoritesCards = () => {
                   variant="contained"
                   color="secondary"
                   style={{ minWidth: '100%', marginBottom: '10px' }}
-                  onClick={() => {
-                    console.log('Recipe:', recipe);
-                    handleDeleteRecipe(recipe._id);
-                  }}
+                  onClick={() => handleDeleteRecipe(recipe._id)}
                 >
                   Delete
                 </Button>

@@ -22,13 +22,14 @@ export const QUERY_ME = gql`
 
 export const GET_ALL_RECIPES = gql`
   query getRecipesByUser($userId: ID!) {
-  getRecipesByUser(userId: $userId) {
-    label
-    ingredientLines
-    url
-    image
+    getRecipesByUser(userId: $userId) {
+      _id
+      label
+      ingredientLines
+      url
+      image
+    }
   }
-}
 `;
 
 export const GET_ALL_INGREDIENTS = gql`
@@ -40,7 +41,6 @@ export const GET_ALL_INGREDIENTS = gql`
       measure
       food
       weight
-      
     }
   }
 `;
