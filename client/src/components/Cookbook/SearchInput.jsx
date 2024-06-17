@@ -49,7 +49,9 @@ const SearchInput = ({ onSearch }) => {
           '& .MuiOutlinedInput-root': {
             '&:hover fieldset': {
               borderColor: '#5DBB63', 
-              
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#5DBB63', // Change this to your desired highlight color
             },
           },
         }}
