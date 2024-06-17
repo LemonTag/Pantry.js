@@ -5,7 +5,7 @@ const path = require('path');
 const { authMiddleware } = require('./utils/auth');
 const jwt = require('jsonwebtoken')
 //will change post prodution
-const SECRET_KEY = 'mysecretssshhhhhhh';
+const secretKey = process.env.REACT_APP_SECRET_KEY
 
 
 const { typeDefs, resolvers } = require('./schemas');
@@ -67,7 +67,7 @@ app.post('/login', async (req, res) => {
     return res.status(403).json({ message: 'Incorrect credentials' });
   }
 
-  const token = jwt.sign({ email: user.email, _id: user._id }, SECRET_KEY, { expiresIn: '1h' });
+  const token = jwt.sign({ email: user.email, _id: user._id }, secretKey, { expiresIn: '1h' });
   res.json({ token, user });
 });
 
