@@ -4,37 +4,34 @@
   <!-- ![Name](urlToShieldHere)(urlToGithubHere) -->
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Contributors](https://img.shields.io/github/contributors/404pandas/PARSR.svg?style=plastic&logo=appveyor)](https://github.com/404pandas/PARSR/graphs/contributors)
-[![Forks](https://img.shields.io/github/forks/404pandas/PARSR.svg?style=plastic&logo=appveyor)](https://github.com/404pandas/PARSR/network/members)
-[![Stargazers](https://img.shields.io/github/stars/404pandas/PARSR.svg?style=plastic&logo=appveyor)](https://github.com/404pandas/PARSR/stargazers)
-[![Issues](https://img.shields.io/github/issues/404pandas/PARSR.svg?style=plastic&logo=appveyor)](https://github.com/404pandas/PARSR/issues)
-[![LinkedIn](https://img.shields.io/badge/-LinkedIn-black.svg?style=plastic&logo=appveyor&logo=linkedin&colorB=555)](https://linkedin.com/in/404pandas)
+[![Contributors]](https://github.com/LemonTag/Pantry.js/graphs/contributors)
+[![Forks]](https://github.com/LemonTag/Pantry.js/network/members)
+[![Issues]](https://github.com/LemonTag/Pantry.js/issues)
 
 </div>
 
 <!-- PROJECT LOGO -->
 
 <div align="center">
-  <a href="https://github.com/404pandas/PARSR">
-    <img src="./client/src/assets/images/parsr-logo.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/LemonTag/Pantry.js">
   </a>
 
-  <h3 align="center">PARSR</h3>
+  <h3 align="center">Pantry.js</h3>
 
   <p align="center">
-    Project Animal Reunification Search & Rescue    <br />
+    Pantry.js    <br />
     <a href="https://www.allanimalrr.org/">
       <img src="./client/src/assets/images/aarr.png" alt="Logo" width="80" height="80">
     </a><br />
-    Brought to you by All Animal Rehabilitation & Release<br />
-    <a href="https://github.com/404pandas/PARSR"><strong>Explore the docs »</strong></a>
+    Brought to you by Vikings who don't care about CSS<br />
+    <a href="https://github.com/LemonTag/Pantry.js"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/404pandas/PARSR">View Demo(Broken)</a>
+    <a href="https://github.com/LemonTag/Pantry.js">View Demo(Broken)</a>
     ·
-    <a href="https://github.com/404pandas/PARSR/issues">Report Bug</a>
+    <a href="https://github.com/LemonTag/Pantry.js/issues">Report Bug</a>
     ·
-    <a href="https://github.com/404pandas/PARSR/issues">Request Feature</a>
+    <a href="https://github.com/LemonTag/Pantry.js/issues">Request Feature</a>
 
   </p>
 </div>
@@ -80,7 +77,6 @@ It's currently not deployed until the prototype MVP is completed.
 
 [![Javascript](https://img.shields.io/badge/Language-JavaScript-ff0000?style=plastic&logo=JavaScript&logoWidth=10)](https://javascript.info/)
 [![MongoDB](https://img.shields.io/badge/Database-MongoDB-80ff00?style=plastic&logo=MongoDB&logoWidth=10)](https://www.mongodb.com/home)
-[![Heroku](https://img.shields.io/badge/Cloud-Heroku-00ff00?style=plastic&logo=Heroku&logoWidth=10)](https://devcenter.heroku.com/categories/reference)
 [![Node.js](https://img.shields.io/badge/Framework-Node.js-ff0000?style=plastic&logo=Node.js&logoWidth=10)](https://nodejs.org/en/)
 [![React](https://img.shields.io/badge/Framework-React.js-ff8000?style=plastic&logo=React&logoWidth=10)](https://reactjs.org/docs/getting-started.html)
 [![Express](https://img.shields.io/badge/Framework-Express-80ff00?style=plastic&logo=Express&logoWidth=10)](https://expressjs.com/)
@@ -140,7 +136,10 @@ npm run develop
 
 ## Usage
 
-Once the app is functional, screenshots will be added in this section.
+Upon opening, users will be directed to our home page, which shows the tabs for the rest of the site and a log in on the header. After logging in, users will have full access to the site.
+Pantry has inputs to take new ingredients and add to the Pantry List, which users can modify ingredient measurements, amounts, and delete ingredients. Checked ingredients can be used as keywords in a recipe search, which will append recipe cards to a modal on the page.
+Cookbook is a recipe api search, using ingredient keywords users can look up recipes.
+All recipe cards can be added to favorites, which users can view on the Favorites page. Users can also remove recipes from their favorites
 
 <!-- ROADMAP -->
 
@@ -151,34 +150,29 @@ Once the app is functional, screenshots will be added in this section.
 - [ ] Front End
 
   - [x] Routing
-  - [ ] Map (Markers, Search area)
+  - [x] Map (Markers, Search area)
   - [x] User Auth
-  - [ ] User Profile Page
   - [x] Landing Page
-  - [ ] Pet Page
-  - [ ] Owner Page
-  - [ ] Map Page
-  - [ ] Error Page
-  - [ ] 404 Page
-  - [ ] Login Form
-  - [ ] Sign Up Form
-  - [ ] Test react-ol-wrapper library
-  - [ ] ? Migrate from ol to react-ol-wrapper ?
+  - [x] Pantry Page
+  - [x] Cookbook Page
+  - [x] Favorite Recipes Page
+  - [x] Error Page
+  - [x] Login Form
+  - [x] Sign Up Form
 
 - [ ] Back End
   - [x] Typedefs
   - [x] Resolvers
   - [x] Seeds
   - [x] User Auth
-  - [ ] Migrate from MongoDB to Postgres (benefit more from a relational database)
 
 #### Future Development
 
 - [ ] Stripe (Donate Page)
-- [ ] Chat
-- [ ] Search
+- [ ] Grocery List
+- [ ] Mobile App
 
-See the [open issues](https://github.com/404pandas/PARSR/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/LemonTag/Pantry.js/issues) for a full list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
 
@@ -207,17 +201,19 @@ See LICENSE.txt for more information.
 
 ## Contact
 
-[Mary Elenius](https://maryelenius.com/d20) - mary.panda.jackson@gmail.com
+[Ian Turnberg]() - ian.r.turnberg@gmail.com
 
-in association with:
+[Keegan Micu]() - LemonTag73@gmail.com
 
-[All Animal Rehabilitation and Release](https://www.allanimalrr.org)
+[Ryan Hinson]() - ryanhinson118@gmail.com
+
+[Daniel Harrison]() - dmharrison2014@gmail.com
 
 Project Links:
 
 [Figma Board- link later]()
 
-[Github Repository](https://github.com/404pandas/PARSR)
+[Github Repository](https://github.com/LemonTag/Pantry.js)
 
 [Deployment- link later]()
 
@@ -225,4 +221,4 @@ Project Links:
 
 ## Acknowledgments
 
-I would like to give a big shoutout to my partner in crime and daughter, Yennefer! Every day she proves she is small yet mighty!
+
