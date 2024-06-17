@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import AuthService from "../../utils/auth";
 import { TextField, Button, Typography, Box } from '@mui/material';
 
-const appId = process.env.REACT_APP_EDAMAM_APP_ID;
-const appKey = process.env.REACT_APP_EDAMAM_APP_KEY;
 
 const SearchInput = ({ onSearch }) => {
+  const appId = process.env.REACT_APP_EDAMAM_APP_ID;
+  const appKey = process.env.REACT_APP_EDAMAM_APP_KEY;
+
   const [inputValue, setInputValue] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
