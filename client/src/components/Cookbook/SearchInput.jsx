@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import AuthService from "../../utils/auth";
 import { TextField, Button, Typography, Box } from '@mui/material';
 
+const appId = process.env.REACT_APP_EDAMAM_APP_ID;
+const appKey = process.env.REACT_APP_EDAMAM_APP_KEY;
+
 const SearchInput = ({ onSearch }) => {
   const [inputValue, setInputValue] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -18,7 +21,7 @@ const SearchInput = ({ onSearch }) => {
         return;
       }
 
-      const response = await fetch(`https://api.edamam.com/search?q=${inputValue}&app_id=e60d45ac&app_key=fcb5780894c4282cc330af20f9a037df`);
+      const response = await fetch(`https://api.edamam.com/search?q=${inputValue}&app_id=${appId}&app_key=${appKey}`);
       if (!response.ok) {
         throw new Error('Failed to fetch recipes from Edamam');
       }

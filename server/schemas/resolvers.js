@@ -2,6 +2,9 @@ const { User, Recipe, Ingredient } = require("../models");
 const { signToken } = require("../utils/auth");
 const { AuthenticationError } = require('apollo-server-express'); // Updated import
 
+const appId = process.env.REACT_APP_EDAMAM_APP_ID;
+const appKey = process.env.REACT_APP_EDAMAM_APP_KEY;
+
 const resolvers = {
   Query: {
     users: async (parent, args, context) => {
@@ -22,7 +25,7 @@ const resolvers = {
       }
     
       try {
-        const response = await fetch(`https://api.edamam.com/search?q=${q}&app_id=e60d45ac&app_key=fcb5780894c4282cc330af20f9a037df`);
+        const response = await fetch(`https://api.edamam.com/search?q=${q}&&app_id=${appId}&app_key=${appKey}`);
     
         if (!response.ok) {
           throw new Error('Failed to fetch recipes from Edamam');

@@ -76,7 +76,7 @@ app.post('/signup', async (req, res) => {
   const { username, email, password } = req.body;
 
   const user = await User.create({ username, email, password });
-  const token = jwt.sign({ email: user.email, _id: user._id }, SECRET_KEY, { expiresIn: '1h' });
+  const token = jwt.sign({ email: user.email, _id: user._id }, secretKey, { expiresIn: '1h' });
   res.json({ token, user });
 });
 
