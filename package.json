@@ -26,6 +26,8 @@
     "@stripe/stripe-js": "^3.5.0",
     "apollo-server-express": "^3.13.0",
     "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
+    "env": "^0.0.2",
     "express": "^4.19.2",
     "graphql": "^16.8.2",
     "jsonwebtoken": "^9.0.2",
