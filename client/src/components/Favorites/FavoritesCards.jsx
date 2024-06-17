@@ -1,45 +1,50 @@
 import React, { useEffect } from 'react';
+import AuthService from "../../utils/auth";
 import { useQuery, useMutation } from '@apollo/client';
 import { Grid, Card, CardMedia, CardContent, Typography, Button, Fade } from '@mui/material';
 import { GET_ALL_RECIPES } from '../../utils/queries';
 import { DELETE_RECIPE } from '../../utils/mutations';
 
 const FavoritesCards = () => {
+  const isLoggedIn = AuthService.loggedIn();
+  if (!isLoggedIn) {
+    return <p>You must be logged in to view this page.</p>;
+  }
+
+  const currentUserId = AuthService.getProfile().data._id;
+
   const { loading, error, data, refetch } = useQuery(GET_ALL_RECIPES, {
-    // Refetch on first load or whenever the data is refetched manually
-    onCompleted: () => {
-      refetch();
-    },
+    variables: { userId: currentUserId },
   });
 
   const [deleteRecipe] = useMutation(DELETE_RECIPE, {
     update(cache, { data: { deleteRecipe } }) {
-      const { getAllRecipes } = cache.readQuery({ query: GET_ALL_RECIPES });
+      const { getRecipesByUser } = cache.readQuery({ query: GET_ALL_RECIPES, variables: { userId: currentUserId } });
       cache.writeQuery({
         query: GET_ALL_RECIPES,
+        variables: { userId: currentUserId },
         data: {
-          getAllRecipes: getAllRecipes.filter(recipe => recipe._id !== deleteRecipe._id),
+          getRecipesByUser: getRecipesByUser.filter(recipe => recipe._id !== deleteRecipe._id),
         },
       });
     },
   });
 
   useEffect(() => {
-    // Initial refetch when component mounts
     refetch();
   }, [refetch]);
 
-  // Ensure loading and error are defined and handled
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  // Ensure data is defined before accessing it
-  const recipes = data ? data.getAllRecipes : [];
+  const recipes = data ? data.getRecipesByUser : [];
 
   const handleDeleteRecipe = async (id) => {
+    console.log('Deleting recipe with id:', id);
+    const variables = { id };
+    console.log('Variables:', variables);
     try {
-      await deleteRecipe({ variables: { id } });
-      // After deleting, trigger a refetch to ensure the UI updates immediately
+      await deleteRecipe({ variables });
       refetch();
     } catch (error) {
       console.error('Error deleting recipe:', error);
@@ -51,7 +56,6 @@ const FavoritesCards = () => {
       {recipes.map((recipe, index) => (
         <Grid item xs={12} sm={6} md={4} key={recipe._id}>
           <Fade in timeout={500} style={{ transitionDelay: `${index * 200}ms` }}>
-            {/* Attach Recipe ID To Card */}
             <Card style={{ height: '100%', display: 'flex', flexDirection: 'column' }} data-recipe-id={recipe._id}>
               <CardMedia
                 component="img"
@@ -63,11 +67,10 @@ const FavoritesCards = () => {
                 <Typography gutterBottom variant="h5" component="div">
                   {recipe.label}
                 </Typography>
-                <Typography variant="body2" color="black" sx={{fontWeight: 'bold'}}>
+                <Typography variant="body2" color="black" sx={{ fontWeight: 'bold' }}>
                   Ingredients:
                 </Typography>
                 <div>
-                  {/* Handle Ingredient Overflow */}
                   <ul style={{ maxHeight: 120, overflowY: 'auto', paddingInlineStart: 20, color: 'black' }} >
                     {recipe.ingredientLines.map((ingredient, idx) => (
                       <li key={idx}>{ingredient}</li>
@@ -76,7 +79,6 @@ const FavoritesCards = () => {
                 </div>
               </CardContent>
               <div style={{ marginTop: 'auto', padding: '10px' }}>
-                {/* View Recipe Button */}
                 <Button
                   variant="contained"
                   color="primary"
@@ -84,16 +86,17 @@ const FavoritesCards = () => {
                   href={recipe.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                
                 >
                   View Recipe
                 </Button>
-                {/* Delete Button */}
                 <Button
                   variant="contained"
                   color="secondary"
                   style={{ minWidth: '100%', marginBottom: '10px' }}
-                  onClick={() => handleDeleteRecipe(recipe._id)}
+                  onClick={() => {
+                    console.log('Recipe:', recipe);
+                    handleDeleteRecipe(recipe._id);
+                  }}
                 >
                   Delete
                 </Button>

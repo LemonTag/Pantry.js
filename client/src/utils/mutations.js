@@ -89,12 +89,14 @@ export const DELETE_INGREDIENT = gql`
 
 export const ADD_RECIPE = gql`
   mutation addRecipe(
+    $userId: ID!
     $label: String!
     $image: String!
     $url: String!
     $ingredientLines: [String!]!
   ) {
     addRecipe(
+      userId: $userId
       label: $label
       image: $image
       url: $url
@@ -104,6 +106,7 @@ export const ADD_RECIPE = gql`
       image
       url
       ingredientLines
+      userId
     }
   }
 `;

@@ -21,15 +21,14 @@ export const QUERY_ME = gql`
 `;
 
 export const GET_ALL_RECIPES = gql`
-  query getAllRecipes {
-    getAllRecipes {
-      _id
-      label
-      ingredientLines
-      url
-      image
-    }
+  query getRecipesByUser($userId: ID!) {
+  getRecipesByUser(userId: $userId) {
+    label
+    ingredientLines
+    url
+    image
   }
+}
 `;
 
 export const GET_ALL_INGREDIENTS = gql`

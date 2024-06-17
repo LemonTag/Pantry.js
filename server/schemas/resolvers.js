@@ -49,8 +49,10 @@ const resolvers = {
     getIngredientById: async (parent, { _id }) => {
       return await Ingredient.findById(_id);
     },
-    getAllRecipes: async () => {
-      return await Recipe.find({});
+    getRecipesByUser: async (parent, { userId }) => {
+      // Find all recipes associated with the user
+      const recipes = await Recipe.find({ userId });
+      return recipes;
     },
   
   },
@@ -104,21 +106,15 @@ const resolvers = {
       return deletedIngredient;
     },
 
-    addRecipe: async (parent, args, context) => {
-      if (!context.user) throw new AuthenticationError('You must be logged in');
-      const recipe = await Recipe.create(args);
-      if (args.ingredientIds && args.ingredientIds.length > 0) {
-        const ingredients = await Ingredient.find({ _id: { $in: args.ingredientIds } });
-        recipe.ingredients = ingredients.map(ingredient => ingredient._id);
+      addRecipe: async (parent, { userId, label, image, url, ingredientLines }) => {
+        // Create a new Recipe object
+        const recipe = new Recipe({ label, image, url, ingredientLines });
+        // Associate the recipe with the user
+        recipe.userId = userId;
+        // Save the recipe to the database
         await recipe.save();
-      }
-      return {
-        label: recipe.label,
-        image: recipe.image,
-        url: recipe.url,
-        ingredientLines: recipe.ingredientLines,
-      };
-    },
+        return recipe;
+      },
 
     // Might use this
     updateRecipe: async (parent, args, context) => {

@@ -23,6 +23,7 @@ const typeDefs = `
     url: String!
     ingredientLines: [String!]!
     createdAt:String
+    userId: ID!
   }
 
   type Auth {
@@ -36,7 +37,7 @@ const typeDefs = `
     me: User
     getIngredientById(_id:ID):Ingredient
     getAllIngredients:[Ingredient]
-    getAllRecipes:[Recipe]
+    getRecipesByUser(userId: ID!): [Recipe]
     recipe(recipeId: ID!):Recipe
     searchRecipes(q: String!): [Recipe]
   }
@@ -51,7 +52,7 @@ const typeDefs = `
     
     deleteIngredient(_id:ID!) :Ingredient
   
-    addRecipe(label: String!, image: String!, url: String!, ingredientLines: [String!]!): Recipe
+    addRecipe(userId: ID!, label: String!, image: String!, url: String!, ingredientLines: [String!]!): Recipe
     updateRecipe(_id: ID!, label: String, image: String, source: String, url: String, ingredientIds: [ID]): Recipe
     deleteRecipe(_id: ID!): Recipe
   }
