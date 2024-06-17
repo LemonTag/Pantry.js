@@ -102,6 +102,9 @@ const Pantry = () => {
                   '&:hover fieldset': {
                     borderColor: '#5DBB63', // Change border color to red on hover
                   },
+                  '&.Mui-focused fieldset': {
+              borderColor: '#5DBB63', // Change this to your desired highlight color
+            },
                 },
               }}
             />
