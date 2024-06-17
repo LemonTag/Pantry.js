@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
+import AuthService from "../../utils/auth";
 import { useMutation } from '@apollo/client';
 import { ADD_RECIPE } from '../../utils/mutations';
 import { Card, CardContent, CardMedia, Typography, Grid, Button, Fade } from '@mui/material';
 
 const CookbookCards = ({ recipes }) => {
+  const isLoggedIn = AuthService.loggedIn();
+  if (!isLoggedIn) {
+    return <p>You must be logged in to view this page.</p>;
+  }
+
+  const currentUserId = AuthService.getProfile().data._id;
+
   const [addRecipe, { error }] = useMutation(ADD_RECIPE);
 
   const handleAddRecipe = async (recipe) => {
@@ -14,15 +22,11 @@ const CookbookCards = ({ recipes }) => {
           image: recipe.image,
           url: recipe.url,
           ingredientLines: recipe.ingredientLines,
+          userId: currentUserId,  // Pass the current user's ID to the mutation
         },
       });
-      console.log('Recipe added successfully!');
     } catch (error) {
-      console.error('Error adding recipe:', error.message);
-      console.error('Error details:', error.graphQLErrors, error.networkError);
-      if (error.networkError && error.networkError.statusCode === 400) {
-        console.error('Bad request error:', error.networkError.result);
-      }
+      console.error('Error adding recipe:', error);
     }
   };
 
