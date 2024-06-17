@@ -56,7 +56,7 @@ const SearchInput = ({ onSearch }) => {
           },
         }}
         InputLabelProps={{
-          style: { color: '#001F3F'}
+          style: { color: '#000000'}
           
         }}
       />
