@@ -97,6 +97,9 @@ const Pantry = () => {
               onChange={handleChange}
               fullWidth
               required
+              InputLabelProps={{
+                style: { color: '#000000' },
+              }}
               sx={{
                 '& .MuiOutlinedInput-root': {
                   '&:hover fieldset': {
