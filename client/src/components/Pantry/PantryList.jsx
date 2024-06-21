@@ -32,8 +32,7 @@ const PantryList = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [editedIngredient, setEditedIngredient] = useState(null);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [currentIngredientId, setCurrentIngredientId] = useState(null);
+  const [anchorEls, setAnchorEls] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
@@ -54,7 +53,7 @@ const PantryList = () => {
 
   const { loading, error, data } = useQuery(GET_ALL_INGREDIENTS, {
     variables: { userId: currentUserId },
-    skip: !isLoggedIn, // Skip the query if the user is not logged in
+    skip: !isLoggedIn,
   });
 
   const [updateIngredient] = useMutation(UPDATE_INGREDIENT, {
@@ -136,19 +135,17 @@ const PantryList = () => {
   };
 
   const handleMenuClick = (event, id) => {
-    setAnchorEl(event.currentTarget);
-    setCurrentIngredientId(id);
+    setAnchorEls((prev) => ({ ...prev, [id]: event.currentTarget }));
   };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    setCurrentIngredientId(null);
+  const handleMenuClose = (id) => {
+    setAnchorEls((prev) => ({ ...prev, [id]: null }));
   };
 
-  const handleDelete = async () => {
+  const handleDelete = async (id) => {
     try {
-      await deleteIngredient({ variables: { _id: currentIngredientId } });
-      handleMenuClose();
+      await deleteIngredient({ variables: { _id: id } });
+      handleMenuClose(id);
     } catch (error) {
       console.error("Error deleting ingredient:", error);
     }
@@ -157,7 +154,7 @@ const PantryList = () => {
   const handleOpenDialog = (id) => {
     const ingredient = data?.getAllIngredients?.find((ing) => ing._id === id);
     if (ingredient) {
-      setEditedIngredient(ingredient); // Set the correct ingredient for editing
+      setEditedIngredient(ingredient);
       setOpenDialog(true);
     }
   };
@@ -212,9 +209,7 @@ const PantryList = () => {
             >
               <ListItemText
                 primary={ingredient.food}
-                secondary={`Quantity: ${ingredient.quantity || ""} ${
-                  ingredient.measure || ""
-                }`}
+                secondary={`Quantity: ${ingredient.quantity || ""} ${ingredient.measure || ""}`}
                 primaryTypographyProps={{ sx: { color: "#001F3F" } }}
                 secondaryTypographyProps={{ sx: { color: "#001F3F" } }}
               />
@@ -224,9 +219,7 @@ const PantryList = () => {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={
-                        selectedIngredients.indexOf(ingredient._id) !== -1
-                      }
+                      checked={selectedIngredients.indexOf(ingredient._id) !== -1}
                       onChange={() => handleToggle(ingredient._id)}
                     />
                   }
@@ -239,14 +232,14 @@ const PantryList = () => {
               </ListItemSecondaryAction>
             </ListItem>
             <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
+              anchorEl={anchorEls[ingredient._id] || null}
+              open={Boolean(anchorEls[ingredient._id])}
+              onClose={() => handleMenuClose(ingredient._id)}
             >
               <MenuItem onClick={() => handleOpenDialog(ingredient._id)}>
                 Update
               </MenuItem>
-              <MenuItem onClick={handleDelete}>
+              <MenuItem onClick={() => handleDelete(ingredient._id)}>
                 Delete
               </MenuItem>
             </Menu>
