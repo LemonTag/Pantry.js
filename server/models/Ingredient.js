@@ -18,6 +18,11 @@ const ingredientSchema = new Schema(
     weight: {
       type: Number,
     },
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+  },
      },
   { toJSON: { virtuals: true } }
 );

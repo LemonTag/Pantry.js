@@ -25,7 +25,8 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_INGREDIENT = gql`
-  mutation addIngredient(
+  mutation AddIngredient(
+    $userId: ID!
     $food: String!
     $text: String
     $quantity: Int
@@ -33,16 +34,19 @@ export const ADD_INGREDIENT = gql`
     $weight: Int
   ) {
     addIngredient(
+      userId: $userId
       food: $food
       text: $text
       quantity: $quantity
       measure: $measure
       weight: $weight
     ) {
-      text
-      quantity
-      measure
+      _id
       food
+      measure
+      quantity
+      text
+      userId
       weight
     }
   }
@@ -50,19 +54,19 @@ export const ADD_INGREDIENT = gql`
 
 export const UPDATE_INGREDIENT = gql`
   mutation updateIngredient(
-    $_id: ID!,
-    $food: String,
-    $text: String,
-    $quantity: Int,
-    $measure: String,
+    $_id: ID!
+    $food: String
+    $text: String
+    $quantity: Int
+    $measure: String
     $weight: Int
   ) {
     updateIngredient(
-      _id: $_id,
-      food: $food,
-      text: $text,
-      quantity: $quantity,
-      measure: $measure,
+      _id: $_id
+      food: $food
+      text: $text
+      quantity: $quantity
+      measure: $measure
       weight: $weight
     ) {
       _id

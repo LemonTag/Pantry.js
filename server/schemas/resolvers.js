@@ -46,8 +46,9 @@ const resolvers = {
         throw new Error('Failed to fetch recipes from Edamam');
       }
     },
-    getAllIngredients: async () => {
-      return await Ingredient.find({});
+    getAllIngredients: async (parent, { userId }) => {
+      const ingredient = await Ingredient.find({ userId });
+      return ingredient;
     },
     getIngredientById: async (parent, { _id }) => {
       return await Ingredient.findById(_id);
@@ -84,10 +85,11 @@ const resolvers = {
       return { token, user };
     },
 
-    addIngredient: async (parent, { food, text, quantity, measure, weight  }, context) => {
+    addIngredient: async (parent, { userId, food, text, quantity, measure, weight  }, context) => {
       // if (!context.user) throw new AuthenticationError('You must be logged in');
       console.log(food)
-      const ingredient =  new Ingredient({ food, text, quantity, measure, weight });
+      const ingredient =  new Ingredient({food, text, quantity, measure, weight });
+      ingredient.userId = userId;
       await ingredient.save()
       return ingredient;
     },

@@ -13,6 +13,8 @@ const typeDefs = `
     measure: String
     food: String
     weight: Int
+    userId: ID!
+
         
   }
 
@@ -36,7 +38,7 @@ const typeDefs = `
     user(username: String!): User
     me: User
     getIngredientById(_id:ID):Ingredient
-    getAllIngredients:[Ingredient]
+    getAllIngredients(userId: ID!):[Ingredient]
     getRecipesByUser(userId: ID!): [Recipe]
     recipe(recipeId: ID!):Recipe
     searchRecipes(q: String!): [Recipe]
@@ -46,7 +48,7 @@ const typeDefs = `
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
   
-    addIngredient(food:String!, text: String, quantity:Int, measure:String, weight:Int): Ingredient
+    addIngredient(userId: ID!, _id:ID, food:String!, text: String, quantity:Int, measure:String, weight:Int): Ingredient
     
     updateIngredient(_id:ID!, food:String, text: String, quantity:Int, measure:String, weight:Int ) : Ingredient
     

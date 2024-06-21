@@ -27,28 +27,8 @@ import AuthService from "../../utils/auth";
 import SearchModal from "./SearchModal";
 
 const PantryList = () => {
-  const { loading, error, data } = useQuery(GET_ALL_INGREDIENTS);
-  const [updateIngredient] = useMutation(UPDATE_INGREDIENT, {
-    refetchQueries: [{ query: GET_ALL_INGREDIENTS }],
-  });
-
-  const [deleteIngredient] = useMutation(DELETE_INGREDIENT, {
-    update(cache, { data: { deleteIngredient } }) {
-      const { getAllIngredients } = cache.readQuery({
-        query: GET_ALL_INGREDIENTS,
-      });
-      const updatedIngredients = getAllIngredients.filter(
-        (ingredient) => ingredient._id !== deleteIngredient._id
-      );
-      cache.writeQuery({
-        query: GET_ALL_INGREDIENTS,
-        data: {
-          getAllIngredients: updatedIngredients,
-        },
-      });
-    },
-  });
-
+  const [currentUserId, setCurrentUserId] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [editedIngredient, setEditedIngredient] = useState(null);
@@ -58,14 +38,45 @@ const PantryList = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    setIsLoggedIn(AuthService.loggedIn());
+    const checkLoginStatus = () => {
+      const loggedIn = AuthService.loggedIn();
+      setIsLoggedIn(loggedIn);
+      if (loggedIn) {
+        const profile = AuthService.getProfile();
+        setCurrentUserId(profile.data._id);
+      }
+    };
+
+    checkLoginStatus();
   }, []);
 
+  const { loading, error, data } = useQuery(GET_ALL_INGREDIENTS, {
+    variables: { userId: currentUserId },
+    skip: !isLoggedIn, // Skip the query if the user is not logged in
+  });
+
+  const [updateIngredient] = useMutation(UPDATE_INGREDIENT, {
+    refetchQueries: [{ query: GET_ALL_INGREDIENTS, variables: { userId: currentUserId } }],
+  });
+
+  const [deleteIngredient] = useMutation(DELETE_INGREDIENT, {
+    refetchQueries: [{ query: GET_ALL_INGREDIENTS, variables: { userId: currentUserId } }],
+    onError(error) {
+      console.error("Mutation error:", error);
+    },
+  });
+
   if (!isLoggedIn) {
-    return null;
+    return (
+      <Container maxWidth="sm">
+        <Typography variant="h3" sx={{ mt: 4, mb: 2, color: "#001F3F" }}>
+          Your Pantry
+        </Typography>
+        <Typography variant="body1">Please log in to view your pantry.</Typography>
+      </Container>
+    );
   }
 
   if (loading) return <p>Loading...</p>;
@@ -86,21 +97,14 @@ const PantryList = () => {
 
   const handleSearch = async () => {
     try {
-      if (AuthService) {
-        const isLoggedIn = AuthService.loggedIn();
-        if (!isLoggedIn) {
-          setErrorMessage("Must be logged in");
-          return;
-        }
-      } else {
-        console.error("AuthService is not defined.");
-        setErrorMessage("Authentication service is not available.");
+      if (!isLoggedIn) {
+        setErrorMessage("Must be logged in to search.");
         return;
       }
 
-      const selectedIngredientNames = data.getAllIngredients
-        .filter((ingredient) => selectedIngredients.includes(ingredient._id))
-        .map((ingredient) => ingredient.food);
+      const selectedIngredientNames = data?.getAllIngredients
+        ?.filter((ingredient) => selectedIngredients.includes(ingredient._id))
+        ?.map((ingredient) => ingredient.food) || [];
 
       if (selectedIngredientNames.length === 0) {
         setErrorMessage("Select at least one ingredient to search.");
@@ -151,9 +155,9 @@ const PantryList = () => {
   };
 
   const handleOpenDialog = (id) => {
-    const ingredient = data.getAllIngredients.find((ing) => ing._id === id);
+    const ingredient = data?.getAllIngredients?.find((ing) => ing._id === id);
     if (ingredient) {
-      setEditedIngredient(ingredient);
+      setEditedIngredient(ingredient); // Set the correct ingredient for editing
       setOpenDialog(true);
     }
   };
@@ -193,7 +197,7 @@ const PantryList = () => {
         Your Pantry
       </Typography>
       <Grid container spacing={0}>
-        {data.getAllIngredients.map((ingredient) => (
+        {data?.getAllIngredients?.map((ingredient) => (
           <Grid item xs={12} key={ingredient._id}>
             <ListItem
               onClick={() => handleOpenDialog(ingredient._id)}
@@ -242,7 +246,7 @@ const PantryList = () => {
               <MenuItem onClick={() => handleOpenDialog(ingredient._id)}>
                 Update
               </MenuItem>
-              <MenuItem onClick={() => handleDelete(ingredient._id)}>
+              <MenuItem onClick={handleDelete}>
                 Delete
               </MenuItem>
             </Menu>
@@ -254,6 +258,7 @@ const PantryList = () => {
         color="primary"
         onClick={handleSearch}
         sx={{ mt: 2, background: "#425263" }}
+        disabled={!isLoggedIn}
       >
         Search
       </Button>
