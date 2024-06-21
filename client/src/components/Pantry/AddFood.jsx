@@ -6,31 +6,44 @@ import { GET_ALL_INGREDIENTS } from '../../utils/queries';
 import AuthService from "../../utils/auth";
 
 const Pantry = () => {
-   
-   const [ingredientData, setIngredientData] = useState({
+  const isLoggedIn = AuthService.loggedIn();
+  const currentUserId = isLoggedIn ? AuthService.getProfile().data._id : null;
+  console.log('Current User ID:', currentUserId);
+
+  const [ingredientData, setIngredientData] = useState({
     text: '',
     quantity: '',
     measure: '',
     food: '',
     weight: '',
+    userId: currentUserId,
   });
 
   const [customAmount, setCustomAmount] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const [addIngredient, { loading, error }] = useMutation(ADD_INGREDIENT, {
+  const [addIngredient,{loading, error}] = useMutation(ADD_INGREDIENT, {
     update(cache, { data: { addIngredient } }) {
-      const { getAllIngredients } = cache.readQuery({ query: GET_ALL_INGREDIENTS });
+      // Read the cache data for the GET_ALL_INGREDIENTS query
+      const { getAllIngredients } = cache.readQuery({
+        query: GET_ALL_INGREDIENTS,
+        variables: { userId: currentUserId }, // Include variables if necessary
+      });
+  
+      // Modify the cache data to include the new ingredient
       cache.writeQuery({
         query: GET_ALL_INGREDIENTS,
-        data: { getAllIngredients: [...getAllIngredients, addIngredient] },
+        variables: { userId: currentUserId }, // Include variables if necessary
+        data: {
+          getAllIngredients: [...getAllIngredients, addIngredient], // Assuming addIngredient returns the newly added ingredient
+        },
       });
     },
   });
 
   useEffect(() => {
-    setIsLoggedIn(AuthService.loggedIn());
+    // You can set other state based on login status if needed
+    // setIsLoggedIn(AuthService.loggedIn());
   }, []);
 
   const handleChange = (event) => {
@@ -47,24 +60,25 @@ const Pantry = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     try {
-        const isLoggedIn = AuthService.loggedIn();
-        if (!isLoggedIn) {
-          setErrorMessage('Must be logged in');
-          return;
-        }
-  
+      if (!isLoggedIn) {
+        setErrorMessage('Must be logged in to add ingredients.');
+        return;
+      }
+
       const { data } = await addIngredient({
         variables: {
-          text: ingredientData.text,
-          quantity: parseFloat(ingredientData.quantity),
-          measure: ingredientData.measure,
+          userId: currentUserId,
           food: ingredientData.food,
-          weight: parseFloat(ingredientData.weight),
+          text: ingredientData.text || null,
+          quantity: ingredientData.quantity ? parseFloat(ingredientData.quantity) : null,
+          measure: ingredientData.measure || null,
+          weight: ingredientData.weight ? parseFloat(ingredientData.weight) : null,
         },
       });
-      if (data) {
+
+      if (data && data.addIngredient) {
         console.log('Ingredient added:', data.addIngredient);
         setIngredientData({
           text: '',
@@ -72,25 +86,28 @@ const Pantry = () => {
           measure: '',
           food: '',
           weight: '',
+          userId: currentUserId,
         });
         setCustomAmount(false);
         setErrorMessage('');
+      } else {
+        setErrorMessage('Failed to add ingredient. Please try again later.');
       }
     } catch (error) {
-      console.error('Error adding ingredient:', error);
+      console.error('Error adding ingredient:', error.message);
+      setErrorMessage('Failed to add ingredient. Please try again later.');
     }
   };
-  
 
   return (
     <Container maxWidth="sm">
-      <Typography variant="h4" sx={{ mb: 4, color: '#001F3F'}}>
+      <Typography variant="h4" sx={{ mb: 4, color: '#001F3F' }}>
         Add Ingredients to List
       </Typography>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-          <TextField
+            <TextField
               label="Food Item"
               name="food"
               value={ingredientData.food}
@@ -103,11 +120,11 @@ const Pantry = () => {
               sx={{
                 '& .MuiOutlinedInput-root': {
                   '&:hover fieldset': {
-                    borderColor: '#5DBB63', // Change border color to red on hover
+                    borderColor: '#5DBB63',
                   },
                   '&.Mui-focused fieldset': {
-              borderColor: '#5DBB63', // Change this to your desired highlight color
-            },
+                    borderColor: '#5DBB63',
+                  },
                 },
               }}
             />
@@ -122,7 +139,8 @@ const Pantry = () => {
                   color="primary"
                 />
               }
-              label="Add Custom Amount" sx = {{color: '#001F3F'}}
+              label="Add Custom Amount"
+              sx={{ color: '#001F3F' }}
             />
           </Grid>
           {customAmount && (
@@ -148,7 +166,7 @@ const Pantry = () => {
                     value={ingredientData.measure}
                     onChange={handleChange}
                     required
-                    sx = {{color: 'black'}}
+                    sx={{ color: 'black' }}
                   >
                     <MenuItem value="pounds">Pounds</MenuItem>
                     <MenuItem value="grams">Grams</MenuItem>
@@ -160,7 +178,13 @@ const Pantry = () => {
             </>
           )}
           <Grid item xs={12}>
-            <Button variant="contained" color="primary" type="submit" disabled={loading} sx={{backgroundColor:'#001F3F'}}>
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              disabled={loading || !isLoggedIn}
+              sx={{ backgroundColor: '#001F3F' }}
+            >
               {loading ? 'Adding...' : 'Add Ingredient'}
             </Button>
           </Grid>

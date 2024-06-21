@@ -33,8 +33,8 @@ export const GET_ALL_RECIPES = gql`
 `;
 
 export const GET_ALL_INGREDIENTS = gql`
-  query GetAllIngredients {
-    getAllIngredients {
+  query GetAllIngredients($userId: ID!) {
+    getAllIngredients(userId: $userId) {
       _id
       text
       quantity
